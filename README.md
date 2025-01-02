@@ -1,0 +1,3 @@
+# CobleLab
+
+My NixOS configuration.
