@@ -1,9 +1,7 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
+    ./disks.nix
   ];
 
   # Bootloader.
@@ -12,7 +10,7 @@
 
   # Networking.
   networking.networkmanager.enable = true;
-  networking.hostName = "nuc01".
+  networking.hostName = "nuc01";
 
   # Set Time Zone.
   time.timeZone = "Europe/London";
