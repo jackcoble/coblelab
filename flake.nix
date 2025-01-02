@@ -13,6 +13,7 @@
     self,
     disko,
     nixpkgs,
+    nixpkgs-unstable,
   } @ inputs: let
     lib = nixpkgs.lib;
   in {
