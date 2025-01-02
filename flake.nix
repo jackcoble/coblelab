@@ -3,12 +3,15 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.11";
+
+    disko.url = "nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
-  }: let
+  } @ inputs: let
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
@@ -25,6 +28,7 @@
       nuc01 = lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          disko.nixosModules.disko
           ./machines/nuc01
         ];
       };
