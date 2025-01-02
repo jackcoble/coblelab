@@ -46,7 +46,7 @@
                     MNTPOINT=$(mktemp -d)
                     mount "/dev/mapper/crypted" "$MNTPOINT" -o subvol=/
                     trap 'umount $MNTPOINT; rm -rf $MNTPOINT' EXIT
-                    btrfs subvolume snapshot -r $MNTPOINT/root $MNTPOINT/root-blank
+                    btrfs subvolume snapshot -r $MNTPOINT/ $MNTPOINT/root-blank
                   '';
 
                   subvolumes = {
