@@ -20,6 +20,14 @@
           ./machines/iso01
         ];
       };
+
+      # NUC
+      nuc01 = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./machines/nuc01
+        ];
+      };
     };
   };
 }
