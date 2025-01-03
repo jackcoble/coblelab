@@ -1,9 +1,17 @@
 # CobleLab
 
-My NixOS configuration.
+## ⚡️ Features
 
-## Remote Installation (via nixos-anywhere)
+- ❄️ Powered by [Nix flakes](https://nixos.wiki/wiki/Flakes)
+- 🧈 [BTRFS](https://docs.kernel.org/filesystems/btrfs.html) root filesystem
+- 🔓 Remote initrd unlock to decrypt LUKS drives on boot
+- 🛠️ Modular repository architecture for readability and usability
+- 📦 [Custom made installation ISOs](https://github.com/jackcoble/coblelab/releases) (contains my SSH key)
 
-```
-nix run github:nix-community/nixos-anywhere -- --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote
+## 🧱 Getting Started
+
+To provision a system as fast as possible, I have created an [install.sh](https://github.com/jackcoble/coblelab/blob/main/install.sh) script which takes care of everything. This is highly tailored to my setup, so it will not work for you.
+
+```bash
+$ ./install.sh
 ```
