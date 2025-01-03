@@ -140,6 +140,43 @@ in {
 
       fileSystems."/persist".neededForBoot = true;
       fileSystems."/var/log".neededForBoot = true;
+
+      # Systemd service to rollback to the blank root snapshot
+      systemd.services.rollback-blank-root = {
+        description = "Rollback BTRFS root subvolume to a pristine state";
+        wantedBy = ["initrd.target"];
+        after = ["systemd-cryptsetup@crypted.service"];
+        before = ["sysroot.mount"];
+        unitConfig.DefaultDependencies = "no";
+        serviceConfig.Type = "oneshot";
+
+        # Script from https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html#darling-erasure
+        # and https://github.com/talyz/nixos-config/blob/b95e5170/machines/evals/configuration.nix#L67-76
+        script = ''
+          mkdir /btrfs_tmp
+          mount -o subvol=@ /dev/mapper/crypted /btrfs_tmp
+
+          if [[ -e /btrfs_tmp/@ ]]; then
+            btrfs subvolume list -o /btrfs_tmp/@ |
+            cut -f9 -d' ' |
+            while read subvol; do
+              echo "Deleting $subvol subvolume..." &&
+              btrfs subvolume delete "/btrfs_tmp/$subvol"
+            done
+
+            echo "Snapshotting @ subvolume..." &&
+            btrfs subvolume snapshot -r /btrfs_tmp/@ /btrfs_tmp/@-"$(date +%FT%T)"
+
+            echo "Deleting old @ subvolume..." &&
+            btrfs subvolume delete /btrfs_tmp/@
+          fi
+
+          echo "Restoring blank @ subvolume..." &&
+          btrfs subvolume snapshot /btrfs_tmp/root-blank /btrfs_tmp/@
+          sync
+          umount /btrfs_tmp
+        '';
+      };
     })
   ];
 }
