@@ -11,9 +11,9 @@
 
   outputs = {
     self,
-    disko,
     nixpkgs,
-    nixpkgs-unstable,
+    disko,
+    ...
   } @ inputs: let
     lib = nixpkgs.lib;
   in {
