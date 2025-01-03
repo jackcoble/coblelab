@@ -17,9 +17,9 @@ in {
 
       # Disable root login and only allow public key authentication
       settings = {
-        PermitRootLogin = "no";
-        PasswordAuthentication = false;
-        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "yes";
+        PasswordAuthentication = true;
+        KbdInteractiveAuthentication = true;
       };
 
       # Only generate Ed25519 host key

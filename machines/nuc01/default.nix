@@ -1,15 +1,13 @@
 {pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
-    ./disks.nix
     ../../modules/nixos
   ];
 
-  # Use systemd-boot as the bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 16; # Limits the number of boot entries (doesn't influence how many generations are kept during garbage collection though)
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 3; # Reduce the timeout to 3 seconds, from 5 seconds (every second counts!)
+  # Disks.
+  coblelab.disks.enable = true;
+  coblelab.disks.systemd-boot = true;
+  coblelab.disks.btrfs.enable = true;
 
   # Networking.
   networking.networkmanager.enable = true;
@@ -17,6 +15,11 @@
 
   # SSH.
   coblelab.ssh.enable = true;
+
+  # Users.
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP"
+  ];
 
   # Timezone.
   coblelab.timezone.enable = true;
