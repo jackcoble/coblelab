@@ -2,6 +2,7 @@
   options,
   config,
   lib,
+  ...
 }: let
   cfg = config.coblelab.ssh;
 in {
