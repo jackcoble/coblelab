@@ -153,6 +153,8 @@ in {
         # Script from https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html#darling-erasure
         # and https://github.com/talyz/nixos-config/blob/b95e5170/machines/evals/configuration.nix#L67-76
         script = ''
+          echo "Rolling back BTRFS root subvolume to a pristine state..."
+
           mkdir /btrfs_tmp
           mount -o subvol=@ /dev/mapper/crypted /btrfs_tmp
 
