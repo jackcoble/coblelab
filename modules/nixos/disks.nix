@@ -143,10 +143,20 @@ in {
 
       # Clear the root volume on every boot
       boot.initrd.postDeviceCommands = lib.mkAfter ''
+        set -x
+        exec 1>>/tmp/initrd.log 2>&1
+
+        echo "Attempting to clear the root volume..."
+
         mkdir -p /mnt
         mount -t btrfs /dev/mapper/crypted /mnt
         btrfs subvolume delete /mnt/@
         btrfs subvolume snapshot /mnt/root-blank /mnt/@
+        umount /mnt
+
+        echo "Root volume cleared successfully."
+
+        set +x
       '';
     })
   ];
