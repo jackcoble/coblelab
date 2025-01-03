@@ -75,35 +75,35 @@ in {
                       # Create a blank root snapshot for rollback
                       postCreateHook = ''
                         MNTPOINT=$(mktemp -d)
-                        mount "/dev/mapper/crypted" "$MNTPOINT" -o subvol=@root
-                        trap 'umount $MNTPOINT; rm -rf $MNTPOINT' EXIT
-                        btrfs subvolume snapshot -r $MNTPOINT/ $MNTPOINT/root-blank
+                        mount -o subvol=@ "/dev/mapper/crypted" "$MNTPOINT"
+                        btrfs subvolume snapshot -r $MNTPOINT/root $MNTPOINT/root-blank
+                        umount "$MNTPOINT"
                       '';
 
                       subvolumes = {
-                        "@root" = {
+                        "@" = {
                           mountpoint = "/";
-                          mountOptions = ["subvol=@root" "compress=zstd" "noatime"];
+                          mountOptions = ["compress=zstd" "noatime"];
                         };
 
                         "@home" = {
                           mountpoint = "/home";
-                          mountOptions = ["subvol=@home" "compress=zstd" "noatime"];
+                          mountOptions = ["compress=zstd" "noatime"];
                         };
 
                         "@nix" = {
                           mountpoint = "/nix";
-                          mountOptions = ["subvol=@nix" "compress=zstd" "noatime"];
+                          mountOptions = ["compress=zstd" "noatime"];
                         };
 
                         "@persist" = {
                           mountpoint = "/persist";
-                          mountOptions = ["subvol=@persist" "compress=zstd" "noatime"];
+                          mountOptions = ["compress=zstd" "noatime"];
                         };
 
                         "@log" = {
                           mountpoint = "/var/log";
-                          mountOptions = ["subvol=@log" "compress=zstd" "noatime"];
+                          mountOptions = ["compress=zstd" "noatime"];
                         };
 
                         "@swap" = {
@@ -122,6 +122,23 @@ in {
 
       fileSystems."/persist".neededForBoot = true;
       fileSystems."/var/log".neededForBoot = true;
+
+      # Load the blank root snapshot each boot
+      boot.initrd.postDeviceCommands = pkgs.lib.mkAfter ''
+        mkdir -p /mnt
+
+        # Mount the btrfs root to /mnt
+        mount -o subvol="@" /dev/mapper/crypted /mnt
+
+        # Delete root subvolume
+        btrfs subvolume delete /mnt/root
+
+        # Restore new root from root-blank
+        btrfs subvolume snapshot /mnt/root-blank /mnt/root
+
+        # Unmount /mnt and continue
+        umount /mnt
+      '';
     })
   ];
 }
