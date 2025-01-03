@@ -122,6 +122,21 @@ in {
 
       fileSystems."/persist".neededForBoot = true;
       fileSystems."/var/log".neededForBoot = true;
+
+      # Remote unlock via initramfs
+      boot.kernelParams = ["ip=dhcp"];
+      boot.initrd.network = {
+        enable = true;
+        ssh = {
+          enable = true;
+          port = 2222; # Use a different port to avoid conflicts
+          shell = "/bin/cryptsetup-askpass";
+          authorizedKeys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP" # M3 Macbook Air
+          ];
+          hostKeys = ["/etc/ssh/initrd/ssh_host_ed25519_key"];
+        };
+      };
     })
   ];
 }
