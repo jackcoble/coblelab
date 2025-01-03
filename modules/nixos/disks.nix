@@ -75,8 +75,8 @@ in {
                       # Create a blank root snapshot for rollback
                       postCreateHook = ''
                         MNTPOINT=$(mktemp -d)
-                        mount -o subvol=@ "/dev/mapper/crypted" "$MNTPOINT"
-                        btrfs subvolume snapshot -r $MNTPOINT/root $MNTPOINT/root-blank
+                        mount -t btrfs -o subvol=@ "/dev/mapper/crypted" "$MNTPOINT"
+                        btrfs subvolume snapshot -r $MNTPOINT/ $MNTPOINT/root-blank
                         umount "$MNTPOINT"
                       '';
 
