@@ -8,6 +8,7 @@
   coblelab.disks.enable = true;
   coblelab.disks.systemd-boot = true;
   coblelab.disks.btrfs.enable = true;
+  coblelab.disks.initrd-ssh = true;
 
   # Networking.
   networking.networkmanager.enable = true;
