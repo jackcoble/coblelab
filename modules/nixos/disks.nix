@@ -142,7 +142,8 @@ in {
       fileSystems."/var/log".neededForBoot = true;
 
       # Systemd service to rollback to the blank root snapshot
-      systemd.services.rollback-blank-root = {
+      boot.initrd.systemd.enable = true;
+      boot.initrd.systemd.services.rollback-blank-root = {
         description = "Rollback BTRFS root subvolume to a pristine state";
         wantedBy = ["initrd.target"];
         after = ["systemd-cryptsetup@crypted.service"];
