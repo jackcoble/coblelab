@@ -12,7 +12,8 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "sd_mod"];
+  # Add "r8169" to the list of kernel modules to load for the "Realtek RTL8111/8168/8411" NIC.
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "sd_mod" "r8169"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
