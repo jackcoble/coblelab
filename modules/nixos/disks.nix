@@ -156,6 +156,7 @@ in {
 
         echo "Root volume cleared successfully."
 
+        cp /tmp/initrd.log /run/initrd.log
         set +x
       '';
     })
