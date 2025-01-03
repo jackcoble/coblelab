@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   imports = [
-    ../../modules/nixos
     ./hardware-configuration.nix
     ./disks.nix
   ];
