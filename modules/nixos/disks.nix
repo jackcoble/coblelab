@@ -144,9 +144,9 @@ in {
       # Clear the root volume on every boot
       boot.initrd.postDeviceCommands = lib.mkAfter ''
         mkdir -p /mnt
-        mount -f btrfs /dev/mapper/crypted /mnt
-        btrfs subvolume delete /mnt/root
-        btrfs subvolume snapshot /mnt/root-blank /mnt/root
+        mount -t btrfs /dev/mapper/crypted /mnt
+        btrfs subvolume delete /mnt/@
+        btrfs subvolume snapshot /mnt/root-blank /mnt/@
       '';
     })
   ];
