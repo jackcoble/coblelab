@@ -9,11 +9,6 @@ It is included in all of my NixOS machines.
   config,
   ...
 }: {
-  # Localisation
-  time.timeZone = "Europe/London";
-  console.keyMap = "uk";
-  i18n.defaultLocale = "en_GB.UTF-8";
-
   # Use systemd-boot as the bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 16; # Limits the number of boot entries (doesn't influence how many generations are kept during garbage collection though)
