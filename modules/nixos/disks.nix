@@ -155,7 +155,7 @@ in {
         script = ''
           echo "Rolling back BTRFS root subvolume to a pristine state..."
 
-          mkdir /btrfs_tmp
+          mkdir -p /btrfs_tmp
           mount -o subvol=@ /dev/mapper/crypted /btrfs_tmp
 
           if [[ -e /btrfs_tmp/@ ]]; then
