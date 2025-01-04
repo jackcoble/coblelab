@@ -27,6 +27,6 @@ My public SSH Keys
   Location: `~/.ssh/id_ed25519.pub`
   */
   user = {
-    jack = "";
+    jack = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP jack@macbookair";
   };
 }
