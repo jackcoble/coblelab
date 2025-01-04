@@ -47,7 +47,7 @@ boot.initrd.availableKernelModules
     '';
 
     boot.initrd.preLVMCommands = ''
-      curl -d "🔓 LUKS Disk Decryption is required!" ntfy.sh/FfVCG2oMps4TLeqG
+      /bin/curl -d "🔓 LUKS Disk Decryption is required!" ntfy.sh/FfVCG2oMps4TLeqG
     '';
 
     # Persist the SSH Boot Keys
