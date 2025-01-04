@@ -33,6 +33,7 @@
       # NUC
       nuc01 = lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {sshPublicKeys = import ./modules/nixos/ssh-public-keys.nix;};
         modules = [
           disko.nixosModules.disko
           impermanence.nixosModules.impermanence

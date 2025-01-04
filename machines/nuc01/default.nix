@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  sshPublicKeys,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos
@@ -37,10 +41,7 @@
 
         # password can be hashed with: nix run nixpkgs#mkpasswd -- -m SHA-512 -s
         hashedPassword = "$6$t46MsRsGAx1W0DIA$51tiEPtZmfF3Faowd53efIrFw0iiHfqiT4zNxGLCDTCiWy9iUhznJ8xZhsApqGN92IwhMsera2GvlYpgcDlwl/";
-
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP"
-        ];
+        openssh.authorizedKeys.keys = [sshPublicKeys.user.jack];
       };
     };
   };
