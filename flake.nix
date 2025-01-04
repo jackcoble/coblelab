@@ -34,6 +34,7 @@
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
+          impermanence.nixosModules.impermanence
           ./machines/nuc01
         ];
       };
