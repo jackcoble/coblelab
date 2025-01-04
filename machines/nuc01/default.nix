@@ -10,6 +10,9 @@
   coblelab.disks.btrfs.enable = true;
   coblelab.disks.initrd-ssh = true;
 
+  # Impermanence.
+  coblelab.impermanence.enable = true;
+
   # Networking.
   networking.networkmanager.enable = true;
   networking.hostName = "nuc01";
