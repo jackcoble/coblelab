@@ -16,12 +16,19 @@ trap cleanup EXIT
 # Boot keys are for the initrd. This is unencrypted, so we use a different keypair
 ssh_dir="$temp/persist/etc/ssh"
 install -d -m 755 "$ssh_dir"
-ssh-keygen -t ed25519 -f "$ssh_dir/ssh_host_ed25519_key" -N "" -C ""
-ssh-keygen -t ed25519 -f "$ssh_dir/ssh_boot_ed25519_key" -N "" -C ""
+ssh-keygen -q -t ed25519 -f "$ssh_dir/ssh_host_ed25519_key" -N "" -C ""
+ssh-keygen -q -t ed25519 -f "$ssh_dir/ssh_boot_ed25519_key" -N "" -C ""
 
 # Set the correct permissions on the SSH keys
 chmod 600 "$ssh_dir/ssh_host_ed25519_key"
 chmod 600 "$ssh_dir/ssh_boot_ed25519_key"
+
+# Output the public keys to the console, as we need to manually update the SSH Public Keys module.
+# Wait for the user to update the SSH Public Keys module before continuing.
+echo "Host SSH Key: $(cat "$ssh_dir/ssh_host_ed25519_key.pub")"
+echo "Boot SSH Key: $(cat "$ssh_dir/ssh_boot_ed25519_key.pub")"
+echo "Update the SSH Public Keys module with the above keys, then press enter to continue."
+read
 
 # Install NixOS
 nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote
