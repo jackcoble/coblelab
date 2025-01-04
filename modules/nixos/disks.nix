@@ -40,7 +40,7 @@ in {
           authorizedKeys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP" # M3 Macbook Air
           ];
-          hostKeys = ["/etc/ssh/initrd/ssh_host_ed25519_key"];
+          hostKeys = ["/persist/etc/ssh/initrd/ssh_host_ed25519_key"];
         };
       };
     })
