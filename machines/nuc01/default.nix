@@ -25,6 +25,8 @@
 
   # Networking.
   networking.networkmanager.enable = true;
+  networking.useDHCP = false;
+  networking.interfaces.enp1s0.useDHCP = true;
   networking.hostName = "nuc01";
 
   # SSH.
