@@ -21,7 +21,7 @@ boot.initrd.availableKernelModules
     };
 
     authorizedKeys = lib.mkOption {
-      type = lib.types.listOf lib.types.string;
+      type = lib.types.listOf lib.types.str;
       default = [];
       description = "List of authorized SSH keys";
     };
