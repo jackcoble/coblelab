@@ -9,10 +9,10 @@
 
 keys:
   - users:
-      - &jack: age1xkn8hwvzs8drdfz96ypv3pe5cudj5l00pz96z7e8ygpakt6h8cesp969f9
+      - &jack age1xkn8hwvzs8drdfz96ypv3pe5cudj5l00pz96z7e8ygpakt6h8cesp969f9
 
 creation_rules:
-  - path_regex: .*\.sops\.yaml$
+  - path_regex: secrets/[^/]+\.yaml$
     key_groups:
       - age:
-        - *jack
+          - *jack
