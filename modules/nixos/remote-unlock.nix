@@ -41,15 +41,6 @@ boot.initrd.availableKernelModules
       };
     };
 
-    # Copy curl to initrd
-    boot.initrd.extraUtilsCommands = ''
-      copy_bin_and_libs ${pkgs.curl}/bin/curl
-    '';
-
-    boot.initrd.luks.devices."/dev/mapper/crypted".preOpenCommands = ''
-      /bin/curl -d "🔓 LUKS Disk Decryption is required!" ntfy.sh/FfVCG2oMps4TLeqG
-    '';
-
     # Persist the SSH Boot Keys
     environment.persistence."${config.coblelab.impermanence.persistDirectory}".files = [
       "/etc/ssh/ssh_boot_ed25519_key"
