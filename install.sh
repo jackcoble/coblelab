@@ -17,7 +17,7 @@ trap cleanup EXIT
 ssh_dir="$temp/persist/etc/ssh"
 install -d -m 755 "$ssh_dir"
 ssh-keygen -t ed25519 -f "$ssh_dir/ssh_host_ed25519_key" -N "" -C ""
-ssh-keygen -t ed25519 -f "$ssh_dir/persist/etc/ssh/ssh_boot_ed25519_key" -N "" -C ""
+ssh-keygen -t ed25519 -f "$ssh_dir/ssh_boot_ed25519_key" -N "" -C ""
 
 # Set the correct permissions on the SSH keys
 chmod 600 "$ssh_dir/ssh_host_ed25519_key"
