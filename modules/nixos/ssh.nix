@@ -22,6 +22,10 @@ in {
         KbdInteractiveAuthentication = false;
       };
 
+      # Prevent the ~/.ssh/authroized_keys file from being used.
+      # We want to keep the config declarative.
+      authorizedKeysInHomedir = false;
+
       # Only generate Ed25519 host key
       hostKeys = [
         {
