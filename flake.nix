@@ -15,6 +15,7 @@
     self,
     nixpkgs,
     disko,
+    impermanence,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
