@@ -12,7 +12,6 @@ in {
   options.coblelab.disks = {
     enable = lib.mkEnableOption "Disk configuration";
     systemd-boot = lib.mkEnableOption "Use systemd-boot as the bootloader";
-    initrd-ssh = lib.mkEnableOption "Unlock LUKS remotely via SSH";
 
     btrfs = {
       enable = lib.mkEnableOption "Use BTRFS filesystem";
@@ -26,23 +25,6 @@ in {
       boot.loader.systemd-boot.configurationLimit = 16;
       boot.loader.efi.canTouchEfiVariables = true;
       boot.loader.timeout = 3;
-    })
-
-    # Remote unlock LUKS
-    (lib.mkIf (cfg.enable && cfg.initrd-ssh) {
-      boot.kernelParams = ["ip=dhcp"];
-      boot.initrd.network = {
-        enable = true;
-        ssh = {
-          enable = true;
-          port = 2222; # Use a different port to avoid conflicts
-          shell = "/bin/cryptsetup-askpass";
-          authorizedKeys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP" # M3 Macbook Air
-          ];
-          hostKeys = ["/etc/ssh/initrd/ssh_host_ed25519_key"];
-        };
-      };
     })
 
     # BTRFS
