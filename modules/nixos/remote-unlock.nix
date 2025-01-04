@@ -28,6 +28,7 @@ boot.initrd.availableKernelModules
   };
 
   config = lib.mkIf config.coblelab.remoteUnlock.enable {
+    boot.kernelParams = ["ip=dhcp"];
     boot.initrd.network = {
       enable = true;
 
