@@ -139,6 +139,7 @@ in {
       };
 
       fileSystems."/persist".neededForBoot = true;
+      fileSystems."/var/log".neededForBoot = true;
 
       # Reset root back to the blank snapshot
       boot.initrd.postDeviceCommands = lib.mkAfter ''
