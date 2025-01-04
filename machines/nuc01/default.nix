@@ -11,7 +11,9 @@
   coblelab.disks.enable = true;
   coblelab.disks.systemd-boot = true;
   coblelab.disks.btrfs.enable = true;
-  coblelab.disks.initrd-ssh = true;
+
+  # Remote unlock LUKS disk
+  coblelab.remoteUnlock.enable = true;
 
   # Impermanence.
   coblelab.impermanence.enable = true;
