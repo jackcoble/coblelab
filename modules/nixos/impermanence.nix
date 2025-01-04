@@ -23,7 +23,6 @@ in {
 
       # Directories we want to keep
       directories = [
-        "/var/log"
         "/var/lib/nixos"
       ];
 
