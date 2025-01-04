@@ -14,7 +14,7 @@
   coblelab.disks.initrd-ssh = true;
 
   # Impermanence.
-  coblelab.impermanence.enable = true;
+  coblelab.impermanence.enable = false;
 
   # Networking.
   networking.networkmanager.enable = true;
