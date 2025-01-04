@@ -143,12 +143,12 @@ in {
 
       # Reset root back to the blank snapshot
       boot.initrd.postDeviceCommands = lib.mkAfter ''
-        mkdir /btrfs_tmp
+        mkdir -p /btrfs_tmp
         mount /dev/mapper/crypted /btrfs_tmp
-        if [[ -e /btrfs_tmp/root ]]; then
+        if [[ -e /btrfs_tmp/@ ]]; then
             mkdir -p /btrfs_tmp/old_roots
-            timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-            mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+            timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/@)" "+%Y-%m-%-d_%H:%M:%S")
+            mv /btrfs_tmp/@ "/btrfs_tmp/old_roots/$timestamp"
         fi
 
         delete_subvolume_recursively() {
@@ -163,7 +163,7 @@ in {
             delete_subvolume_recursively "$i"
         done
 
-        btrfs subvolume create /btrfs_tmp/root
+        btrfs subvolume create /btrfs_tmp/@
         umount /btrfs_tmp
         rmdir /btrfs_tmp
       '';
