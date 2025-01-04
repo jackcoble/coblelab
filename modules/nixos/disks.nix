@@ -40,7 +40,7 @@ in {
           authorizedKeys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP" # M3 Macbook Air
           ];
-          hostKeys = ["/persist/etc/ssh/initrd/ssh_host_ed25519_key"];
+          hostKeys = ["/etc/ssh/initrd/ssh_host_ed25519_key"];
         };
       };
     })
@@ -49,6 +49,16 @@ in {
     (lib.mkIf (cfg.enable && cfg.btrfs.enable) {
       # Partition disks delcaratively with disko
       disko.devices = {
+        # tmpfs for ephemeral root
+        nodev = {
+          "/" = {
+            fsType = "tmpfs";
+            mountOptions = [
+              "size=2G"
+            ];
+          };
+        };
+
         disk = {
           main = {
             type = "disk";
@@ -117,18 +127,11 @@ in {
               };
             };
           };
-
-          # tmpfs for ephemeral root
-          nodev = {
-            "/" = {
-              fsType = "tmpfs";
-              mountOptions = [
-                "size=2G"
-              ];
-            };
-          };
         };
       };
+
+      # Filesystems need to be available for the system to boot
+      fileSystems."${config.coblelab.impermanence.persistDirectory}".neededForBoot = true;
     })
   ];
 }
