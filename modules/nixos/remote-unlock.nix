@@ -36,9 +36,7 @@ boot.initrd.availableKernelModules
         enable = true;
         port = config.coblelab.remoteUnlock.port;
         shell = "/bin/cryptsetup-askpass";
-        authorizedKeys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP" # M3 Macbook Air
-        ];
+        authorizedKeys = config.coblelab.remoteUnlock.authorizedKeys;
         hostKeys = ["/etc/ssh/ssh_boot_ed25519_key"];
       };
     };

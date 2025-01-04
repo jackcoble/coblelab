@@ -18,6 +18,7 @@
 
   # Remote unlock LUKS disk
   coblelab.remoteUnlock.enable = true;
+  coblelab.remoteUnlock.authorizedKeys = [sshPublicKeys.user.jack];
 
   # Impermanence.
   coblelab.impermanence.enable = true;
