@@ -4,6 +4,9 @@
     ../../modules/nixos
   ];
 
+  # Enable Nix Flakes
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   # Disks.
   coblelab.disks.enable = true;
   coblelab.disks.systemd-boot = true;
