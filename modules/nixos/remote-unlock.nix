@@ -46,7 +46,7 @@ boot.initrd.availableKernelModules
       copy_bin_and_libs ${pkgs.curl}/bin/curl
     '';
 
-    boot.initrd.preLVMCommands = ''
+    boot.initrd.luks.devices."/dev/sda".preOpenCommands = ''
       /bin/curl -d "🔓 LUKS Disk Decryption is required!" ntfy.sh/FfVCG2oMps4TLeqG
     '';
 
