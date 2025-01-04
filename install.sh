@@ -11,14 +11,17 @@ function cleanup {
 }
 trap cleanup EXIT
 
-# Create the directory where the initrd SSH host keys will live
-install -d -m 755 "$temp/etc/ssh/initrd"
+# Create some SSH Host and Boot keys
+# Host keys are for the sshd server, and eventually secrets encryption for the machine
+# Boot keys are for the initrd. This is unencrypted, so we use a different keypair
+ssh_dir="$temp/persist/etc/ssh"
+install -d -m 755 "$ssh_dir"
+ssh-keygen -t ed25519 -f "$ssh_dir/ssh_host_ed25519_key" -N "" -C ""
+ssh-keygen -t ed25519 -f "$ssh_dir/persist/etc/ssh/ssh_boot_ed25519_key" -N "" -C ""
 
-# Generate the SSH host keys for the initrd
-ssh-keygen -t ed25519 -f "$temp/etc/ssh/initrd/ssh_host_ed25519_key" -N "" -C ""
-
-# Set the correct permissions on the SSH host keys
-chmod 600 "$temp/etc/ssh/initrd/ssh_host_ed25519_key"
+# Set the correct permissions on the SSH keys
+chmod 600 "$ssh_dir/ssh_host_ed25519_key"
+chmod 600 "$ssh_dir/ssh_boot_ed25519_key"
 
 # Install NixOS
-nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --flake '.#nuc01' --target-host root@192.168.0.10 --build-on-remote
+nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote

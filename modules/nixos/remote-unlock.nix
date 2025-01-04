@@ -39,14 +39,14 @@ boot.initrd.availableKernelModules
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP" # M3 Macbook Air
         ];
-        hostKeys = ["/etc/ssh/initrd/ssh_host_ed25519_key"];
+        hostKeys = ["/etc/ssh/ssh_boot_ed25519_key"];
       };
     };
 
     # Persist the SSH Boot Keys
     environment.persistence."${config.coblelab.impermanence.persistDirectory}".files = [
-      "/etc/ssh/initrd/ssh_host_ed25519_key"
-      "/etc/ssh/initrd/ssh_host_ed25519_key.pub"
+      "/etc/ssh/ssh_boot_ed25519_key"
+      "/etc/ssh/ssh_boot_ed25519_key.pub"
     ];
   };
 }
