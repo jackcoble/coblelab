@@ -8,7 +8,7 @@ My public SSH Keys
   Location: `/etc/ssh/ssh_host_ed25519_key`
   */
   host = {
-    nuc01 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIuhlMku7LB774GQyeulIHBALYFufdzv9dFNX18Slglp";
+    nuc01 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKluNai/HHBa04m2d8fC9DWUtL4uohM60EKXcLMREFEm";
   };
 
   /*
@@ -18,7 +18,7 @@ My public SSH Keys
   Location: `/etc/ssh/ssh_boot_ed25519_key` (+ added to initrd)
   */
   boot = {
-    nuc01 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9wf/geklTr81kYiugR/sesh7UIHUz6CsJ+V9PT6I92";
+    nuc01 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlvKKpxvgFlPCbQ9POtj4SBihPbVXPvC5f8BLRUwXne";
   };
 
   /*

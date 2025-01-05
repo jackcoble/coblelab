@@ -11,7 +11,7 @@ keys:
   - users:
       - &jack age1xkn8hwvzs8drdfz96ypv3pe5cudj5l00pz96z7e8ygpakt6h8cesp969f9
   - hosts:
-      - &nuc01 age19u83veuhkw7d2w20q55r7jhp3pkv2wcwrxwva3j7xlj58wurv53q44xqlc
+      - &nuc01 age1cwyp4vvp7tcxc6z58xg7fqn6ltaa5c5vkxynurl74780042gnu2qh4gef4
 
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
