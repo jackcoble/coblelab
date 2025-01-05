@@ -30,5 +30,12 @@ echo "Boot SSH Key: $(cat "$ssh_dir/ssh_boot_ed25519_key.pub")"
 echo "Update the SSH Public Keys module with the above keys, then press enter to continue."
 read
 
+# Convert the Host SSH Key into an Age public key.
+# Prompt user to update .sops.yaml and reencrypt with the updated key
+echo "Age Public Key: $(cat "$ssh_dir/ssh_host_ed25519_key.pub" | ssh-to-age)"
+echo "Add this public key to .sops.yaml and re-encrypt the keys with: 'sops updatekeys secrets/secrets.yaml'"
+echo "Press enter to continue."
+read
+
 # Install NixOS
 nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote
