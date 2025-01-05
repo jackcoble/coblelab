@@ -15,7 +15,6 @@ This SOPS module takes care of loading secrets, decrypting them using the Host S
       neededForUsers = true;
     };
 
-    "borg-backup/password" = {};
-    "borg-backup/repository-url" = {};
+    restic-password = {};
   };
 }
