@@ -23,9 +23,18 @@ This backups module uses Restic to backup
 
       # Backup schedule
       timerConfig = {
-        OnCalendar = "00:00";
+        OnCalendar = "daily";
+        Persistent = true;
         RandomizedDelaySec = "1h";
       };
+
+      # Prune options
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 12"
+        "--keep-yearly 4"
+      ];
     };
   };
 }
