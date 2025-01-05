@@ -36,5 +36,10 @@ in {
         "/etc/ssh/ssh_host_ed25519_key.pub"
       ];
     };
+
+    # Disable sudo from lecturing us after each reboot
+    security.sudo.extraConfig = ''
+      Defaults lecture = never
+    '';
   };
 }
