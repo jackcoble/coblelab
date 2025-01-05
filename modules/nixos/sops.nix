@@ -14,5 +14,10 @@ This SOPS module takes care of loading secrets, decrypting them using the Host S
     jack-password = {
       neededForUsers = true;
     };
+
+    restic = {
+      password = {};
+      repository-url = {};
+    };
   };
 }
