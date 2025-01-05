@@ -45,7 +45,7 @@
       jack = {
         isNormalUser = true;
         extraGroups = ["wheel"];
-        hashedPasswordFile = config.sops.secrets."user_passwords/jack".path;
+        hashedPasswordFile = config.sops.secrets.jack-password.path;
         openssh.authorizedKeys.keys = [sshPublicKeys.user.jack];
       };
     };

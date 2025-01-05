@@ -6,8 +6,9 @@ This SOPS module takes care of loading secrets, decrypting them using the Host S
 
   # Declare secrets
   sops.secrets = {
-    "user_passwords/jack" = {
+    jack-password = {
       sopsFile = ../../secrets/secrets.yaml;
+      neededForUsers = true;
     };
   };
 }
