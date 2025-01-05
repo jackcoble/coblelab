@@ -1,5 +1,6 @@
 {
   imports = [
+    ./backups.nix
     ./disks.nix
     ./impermanence.nix
     ./remote-unlock.nix
