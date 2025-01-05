@@ -54,6 +54,13 @@
   # Timezone.
   coblelab.timezone.enable = true;
 
+  # System Packages
+  environment.systemPackages = with pkgs; [
+    sops
+    age
+    ssh-to-age
+  ];
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.11";
 }
