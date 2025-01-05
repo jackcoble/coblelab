@@ -38,6 +38,8 @@
 
   # Users.
   users = {
+    mutableUsers = false;
+
     users = {
       jack = {
         isNormalUser = true;

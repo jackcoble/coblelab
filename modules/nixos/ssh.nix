@@ -16,13 +16,11 @@ in {
       enable = true;
 
       # Disable root login and only allow public key authentication
-      /*
       settings = {
         PermitRootLogin = "no";
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
       };
-      */
 
       # Prevent the ~/.ssh/authroized_keys file from being used.
       # We want to keep the config declarative.
