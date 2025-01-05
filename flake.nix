@@ -9,6 +9,9 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     impermanence.url = "github:nix-community/impermanence";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -16,6 +19,7 @@
     nixpkgs,
     disko,
     impermanence,
+    sops-nix,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -37,6 +41,7 @@
         modules = [
           disko.nixosModules.disko
           impermanence.nixosModules.impermanence
+          sops-nix.nixosModules.sops
           ./machines/nuc01
         ];
       };
