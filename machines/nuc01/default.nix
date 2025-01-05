@@ -51,6 +51,9 @@
     };
   };
 
+  # Disable sudo password for users in the "wheel" group
+  security.sudo.wheelNeedsPassword = false;
+
   # Timezone.
   coblelab.timezone.enable = true;
 
