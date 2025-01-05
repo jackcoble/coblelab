@@ -7,7 +7,7 @@ This backups module uses Borg Backup to back up my hosts to an off-site location
     repo is stored on a Hetzner Storage Box:
     https://community.hetzner.com/tutorials/install-and-configure-borgbackup
     */
-    repo = "ssh://u441231@u441231.your-storagebox.de:23/./backups/${config.networking.hostName}";
+    repo = "ssh://u441231@u441231.your-storagebox.de:23/~/backups/${config.networking.hostName}";
 
     # i want to use the ssh host key of the machine for backup access
     # really i should generate a dedicated key
