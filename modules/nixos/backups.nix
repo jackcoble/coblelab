@@ -6,6 +6,9 @@ This backups module uses Restic to backup
   config,
   ...
 }: {
+  # Add the Hetzner Storage Box as a known SSH host, so we dont run into issues with untrusted hosts
+  programs.ssh.knownHosts."u441231.your-storagebox.de".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+
   services.restic.backups = {
     hetzner-storage-box = {
       # Repository information
