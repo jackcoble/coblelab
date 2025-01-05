@@ -1,5 +1,7 @@
 {
   imports = [
+    ./users
+
     ./backups.nix
     ./disks.nix
     ./impermanence.nix
