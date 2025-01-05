@@ -38,9 +38,6 @@
 
   # Users.
   users = {
-    # Keeps users declarative
-    mutableUsers = false;
-
     users = {
       jack = {
         isNormalUser = true;
