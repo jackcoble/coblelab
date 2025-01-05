@@ -28,6 +28,7 @@
       # ISO Builder
       iso01 = lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {sshPublicKeys = import ./modules/nixos/ssh-public-keys.nix;};
         modules = [
           (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
           ./machines/iso01

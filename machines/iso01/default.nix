@@ -1,11 +1,13 @@
-{
+/*
+This machine configuration is for creating a custom NixOS Installer ISO
+with my personal SSH key added to it.
+*/
+{sshPublicKeys, ...}: {
   # Apply personal SSH key to "nixos" user.
   users.users.nixos = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager"];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBt423fvkSC8SeKVPPAl3MFpwvzwBZ8XEBd4/KrINoP"
-    ];
+    extraGroups = ["wheel"];
+    openssh.authorizedKeys.keys = [sshPublicKeys.user.jack];
   };
 
   # Disable password for "sudo"
