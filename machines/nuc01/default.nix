@@ -12,6 +12,9 @@
   # Enable Nix Flakes
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  # Users
+  coblelab.users.jack.enable = true; # Personal user
+
   # Disks.
   coblelab.disks.enable = true;
   coblelab.disks.systemd-boot = true;
@@ -35,20 +38,6 @@
 
   # SSH.
   coblelab.ssh.enable = true;
-
-  # Users.
-  users = {
-    mutableUsers = false;
-
-    users = {
-      jack = {
-        isNormalUser = true;
-        extraGroups = ["wheel"];
-        hashedPasswordFile = config.sops.secrets.jack-password.path;
-        openssh.authorizedKeys.keys = [sshPublicKeys.user.jack];
-      };
-    };
-  };
 
   # Disable sudo password for users in the "wheel" group
   security.sudo.wheelNeedsPassword = false;
