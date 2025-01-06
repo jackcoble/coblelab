@@ -28,18 +28,14 @@ backup directory.
     
     # Global SMB settings
     settings.global = {
-      "security" = "user";
-      "wide links" = "yes";
-      "unix extensions" = "no";
-      "vfs object" = "acl_xattr catia fruit streams_xattr";
-      "fruit:nfs_aces" = "no";
-      "fruit:aapl" = "yes";
-      "fruit:model" = "MacSamba";
-      "fruit:posix_rename" = "yes";
+      "vfs objects" = "fruit streams_xattr";  
       "fruit:metadata" = "stream";
-      "fruit:delete_empty_adfiles" = "yes";
+      "fruit:model" = "MacSamba";
       "fruit:veto_appledouble" = "no";
-      "spotlight" = "yes";
+      "fruit:nfs_aces" = "no";
+      "fruit:wipe_intentionally_left_blank_rfork" = "yes"; 
+      "fruit:delete_empty_adfiles" = "yes"; 
+      "fruit:posix_rename" = "yes"; 
     };
 
     # Time Machine share
