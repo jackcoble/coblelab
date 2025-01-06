@@ -28,30 +28,30 @@ backup directory.
     
     # Global SMB settings
     settings.global = {
-      "security" = "user";
-      "vfs objects" = "fruit streams_xattr";
-      "fruit:metadata" = "stream";
+      "protocol" = "SMB3";
+      "vfs objects" = "acl_xattr fruit streams_xattr aio_pthread";
+      "fruit:aapl" = "yes";
       "fruit:model" = "MacSamba";
-      "fruit:veto_appledouble" = "no";
+      "fruit:posix_rename" = "yes";
+      "fruit:metadata" = "stream";
       "fruit:nfs_aces" = "no";
-      "fruit:wipe_intentionally_left_blank_rfork" = "yes"; 
-      "fruit:delete_empty_adfiles" = "yes"; 
-      "fruit:posix_rename" = "yes"; 
+      "recycle:keeptree" = "no";
+      "oplocks" = "yes";
+      "locking" = "yes";
     };
 
     # Time Machine share
     settings."Time Machine" = {
-      path = "/var/lib/time-machine";
-      comment = "Time Machine";
-      browseable = "yes";
-      public = "no";
-      writeable = "yes";
-      "force user" = "time-machine";
-      "force group" = "time-machine";
-      "fruit:aapl" = "yes";
+      "path" = "/var/lib/time-machine";
+      "comment" = "Time Machine";
+      "valid users" = "time-machine";
+      "writable" = "yes";
+      "ea support" = "yes";
+      "browseable" = "yes";
+      "read only" = "no";
+      "inherit acls" = "yes";
       "fruit:time machine" = "yes";
       "fruit:time machine max size" = "512G"; # Cap Time Machine backups to 512GB
-      "vfs objects" = "catia fruit streams_xattr";
     };
   };
 
