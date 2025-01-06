@@ -22,7 +22,7 @@ backup directory.
 
   # Create the Time Machine backup directory
   # Permissions are set to 750, so only the `time-machine` user can access it
-  systemd.tempfiles.rules = [
+  systemd.tmpfiles.rules = [
     "D /var/lib/time-machine 750 time-machine time-machine"
   ];
 
