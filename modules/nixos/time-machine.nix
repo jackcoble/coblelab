@@ -25,13 +25,13 @@ backup directory.
     enable = true;
     nmbd.enable = true;
     openFirewall = true;
+    securityType = "user";
     
     # Global SMB settings
     settings.global = {
       workgroup = "WORKGROUP";
       "server string" = "${config.networking.hostName}";
       "netbios name" = "${config.networking.hostName}";
-      "security type" = "user";
       "hosts allow" = "10.0.7. 10.0.2. 10.2.0. 100.64.0.0/10 127.0.0.1 localhost";
       "hosts deny" = "0.0.0.0/0";
       "guest account" = "nobody";
