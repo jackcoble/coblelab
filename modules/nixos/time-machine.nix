@@ -22,6 +22,7 @@ backup directory.
   # Samba service
   services.samba = {
     enable = true;
+    openFirewall = true;
     
     settings = {
       "Time Machine" = {
