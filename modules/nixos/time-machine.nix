@@ -28,34 +28,15 @@ backup directory.
     
     # Global SMB settings
     settings.global = {
-      workgroup = "WORKGROUP";
-      "server string" = "${config.networking.hostName}";
-      "netbios name" = "${config.networking.hostName}";
       "security" = "user";
-      "hosts allow" = "10.0.7. 10.0.2. 10.2.0. 100.64.0.0/10 127.0.0.1 localhost";
-      "hosts deny" = "0.0.0.0/0";
-      "guest account" = "nobody";
-      "map to guest" = "bad user";
-      "min protocol" = "SMB2";
-      "ea support" = "yes";
-      "browseable" = "yes";
-      "smb encrypt" = "auto";
-      "load printers" = "no";
-      "printcap name" = "/dev/null";
-      "bind interfaces only" = "yes";
-      "interfaces" = "lo br0 tailscale0";
-      "vfs objects" = "catia fruit streams_xattr";
-      "fruit:aapl" = "yes";
-      "fruit:posix_rename" = "yes";
-      "fruit:nfs_aces" = "no";
-      "fruit:zero_file_id" = "yes";
+      "vfs objects" = "fruit streams_xattr";
       "fruit:metadata" = "stream";
-      "fruit:encoding" = "native";
-      "spotlight backend" = "tracker";
-      "fruit:model" = "MacPro7,1@ECOLOR=226,226,224";
-      "fruit:wipe_intentionally_left_blank_rfork" = "yes";
-      "fruit:delete_empty_adfiles" = "yes";
+      "fruit:model" = "MacSamba";
       "fruit:veto_appledouble" = "no";
+      "fruit:nfs_aces" = "no";
+      "fruit:wipe_intentionally_left_blank_rfork" = "yes"; 
+      "fruit:delete_empty_adfiles" = "yes"; 
+      "fruit:posix_rename" = "yes"; 
     };
 
     # Time Machine share
