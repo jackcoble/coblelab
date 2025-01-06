@@ -28,16 +28,18 @@ backup directory.
     
     # Global SMB settings
     settings.global = {
-      "protocol" = "SMB3";
-      "vfs objects" = "acl_xattr fruit streams_xattr aio_pthread";
+      "security" = "user";
+      "wide links" = "yes";
+      "unix extensions" = "no";
+      "vfs object" = "acl_xattr catia fruit streams_xattr";
+      "fruit:nfs_aces" = "no";
       "fruit:aapl" = "yes";
       "fruit:model" = "MacSamba";
       "fruit:posix_rename" = "yes";
       "fruit:metadata" = "stream";
-      "fruit:nfs_aces" = "no";
-      "recycle:keeptree" = "no";
-      "oplocks" = "yes";
-      "locking" = "yes";
+      "fruit:delete_empty_adfiles" = "yes";
+      "fruit:veto_appledouble" = "no";
+      "spotlight" = "yes";
     };
 
     # Time Machine share
@@ -45,22 +47,10 @@ backup directory.
       "path" = "/var/lib/time-machine";
       "comment" = "Time Machine";
       "valid users" = "time-machine";
+      "available" = "yes";
       "writable" = "yes";
-      "ea support" = "yes";
-      "browseable" = "yes";
-      "read only" = "no";
-      "inherit acls" = "yes";
       "fruit:time machine" = "yes";
       "fruit:time machine max size" = "512G"; # Cap Time Machine backups to 512GB
-    };
-  };
-
-  # Enable Avahi for Time Machine discovery
-  services.avahi = {
-    enable = true;
-    publish = {
-      enable = true;
-      userServices = true;
     };
   };
 }
