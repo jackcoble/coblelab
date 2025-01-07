@@ -22,6 +22,7 @@
 
   # Supported Filesystems
   boot.supportedFilesystems = [ "btrfs" "zfs" ];
+  boot.zfs.extraPools = ["tank"];
 
   # Remote unlock LUKS disk
   coblelab.remoteUnlock.enable = true;
