@@ -15,16 +15,10 @@ backup directory.
   users.groups.time-machine = {};
   users.users.time-machine = {
     isSystemUser = true;
-    home = "/var/lib/time-machine";
+    home = "/data/tank/backups/time-machine";
     description = "Time Machine Backup";
     group = "time-machine";
   };
-
-  # Create the Time Machine backup directory
-  # Permissions are set to 750, so only the `time-machine` user can access it
-  systemd.tmpfiles.rules = [
-    "D /var/lib/time-machine 750 time-machine time-machine"
-  ];
 
   # Samba service
   services.samba = {
@@ -46,7 +40,7 @@ backup directory.
 
     # Time Machine share
     settings."Time Machine" = {
-      "path" = "/var/lib/time-machine";
+      "path" = "/data/tank/backups/time-machine";
       "comment" = "Time Machine";
       "valid users" = "time-machine";
       "available" = "yes";
