@@ -20,6 +20,9 @@
   coblelab.disks.systemd-boot = true;
   coblelab.disks.btrfs.enable = true;
 
+  # Supported Filesystems
+  boot.supportedFilesystems = [ "btrfs" "zfs" ];
+
   # Remote unlock LUKS disk
   coblelab.remoteUnlock.enable = true;
   coblelab.remoteUnlock.authorizedKeys = [sshPublicKeys.user.jack];
