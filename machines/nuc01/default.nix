@@ -34,6 +34,10 @@
   networking.networkmanager.enable = true;
   networking.hostName = "nuc01";
 
+  # Host ID (derived from machine id)
+  # `head -c 8 /etc/machine-id`
+  networking.hostId = "17bdf883";
+
   # Fixes DNS not working after initrd
   # https://github.com/NixOS/nixpkgs/issues/63941#issuecomment-2081126437
   boot.initrd.network.udhcpc.enable = true;
