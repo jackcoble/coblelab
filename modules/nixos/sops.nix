@@ -16,5 +16,8 @@ This SOPS module takes care of loading secrets, decrypting them using the Host S
     };
 
     restic-password = {};
+
+    # ZFS Dataset encryption keys
+    "zfs-encryption-keys/photos" = {};
   };
 }
