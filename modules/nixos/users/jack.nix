@@ -15,10 +15,14 @@ in {
   # Configuration for this user
   config = lib.mkIf cfg.jack.enable {
     users.users.jack = {
+      uid = 1000; # Hardcoded UID
       isNormalUser = true;
       extraGroups = ["wheel"];
       hashedPasswordFile = config.sops.secrets.jack-password.path;
       openssh.authorizedKeys.keys = [sshPublicKeys.user.jack];
+      group = "jack";
     };
+
+    users.groups.jack.gid = 1000; # Hardcoded GID
   };
 }
