@@ -48,6 +48,9 @@
   # SSH.
   coblelab.ssh.enable = true;
 
+  # Backups
+  coblelab.backups.enable = true;
+
   # Disable sudo password for users in the "wheel" group
   security.sudo.wheelNeedsPassword = false;
 
