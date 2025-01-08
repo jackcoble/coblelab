@@ -15,13 +15,33 @@ trap cleanup EXIT
 # Host keys are for the sshd server, and eventually secrets encryption for the machine
 # Boot keys are for the initrd. This is unencrypted, so we use a different keypair
 ssh_dir="$temp/persist/etc/ssh"
-install -d -m 755 "$ssh_dir"
-ssh-keygen -q -t ed25519 -f "$ssh_dir/ssh_host_ed25519_key" -N "" -C ""
-ssh-keygen -q -t ed25519 -f "$ssh_dir/ssh_boot_ed25519_key" -N "" -C ""
+mkdir -p "$ssh_dir"
+
+# Ask the user if they want to import an existing keys directory
+read -p "Do you want to import an existing keys directory? (y/N): " import_keys
+if [[ "$import_keys" =~ ^[Yy]$ ]]; then
+  read -p "Enter the path to the keys directory (default: ./keys): " keys_dir
+
+  keys_dir=${keys_dir:-./keys}
+  keys_dir=$(realpath "$keys_dir")
+
+  if [ -d "$keys_dir" ]; then
+    cp -f "$keys_dir"/* "$ssh_dir/"
+  else
+    echo "The specified directory does not exist. Exiting."
+    exit 1
+  fi
+else
+  # Generate new keys
+  ssh-keygen -q -t ed25519 -f "$ssh_dir/ssh_host_ed25519_key" -N "" -C ""
+  ssh-keygen -q -t ed25519 -f "$ssh_dir/ssh_boot_ed25519_key" -N "" -C ""
+fi
 
 # Set the correct permissions on the SSH keys
 chmod 600 "$ssh_dir/ssh_host_ed25519_key"
+chmod 644 "$ssh_dir/ssh_host_ed25519_key.pub"
 chmod 600 "$ssh_dir/ssh_boot_ed25519_key"
+chmod 644 "$ssh_dir/ssh_boot_ed25519_key.pub"
 
 # Output the public keys to the console, as we need to manually update the SSH Public Keys module.
 # Wait for the user to update the SSH Public Keys module before continuing.
