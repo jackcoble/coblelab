@@ -57,5 +57,14 @@ echo "Add this public key to .sops.yaml and re-encrypt the keys with: 'sops upda
 echo "Press enter to continue."
 read
 
+# Ask the user if they are reinstalling the machine.
+# Sets the "disko mode" - mount disks or format them
+read -p "Are you reinstalling the machine? (y/N): " disko_mode
+if [[ "$disko_mode" =~ ^[Yy]$ ]]; then
+  disko_mode="disko"
+else
+  disko_mode="mount"
+fi
+
 # Install NixOS
-nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote
+nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --disko-mode "$disko_mode" --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote
