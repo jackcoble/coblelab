@@ -191,9 +191,9 @@ in {
 
     # If impermanence is enabled, we should roll back to the empty root snapshot
     # on each boot
+    # Note: https://github.com/NixOS/nixpkgs/issues/341542
     (lib.mkIf (config.coblelab.impermanence.enable) {
       boot.initrd.postResumeCommands = lib.mkAfter ''
-        echo "Rolling back to empty snapshot..."
         zfs rollback -r zroot/root@empty
       '';
     })
