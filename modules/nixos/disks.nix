@@ -14,7 +14,8 @@ in {
     systemd-boot = lib.mkEnableOption "Use systemd-boot as the bootloader";
 
     zfs = {
-      enable = lib.mkEnableOption "Use ZFS filesystem";
+      enable = lib.mkEnableOption "Use ZFS filesystem for Root";
+      enableStoragePool = lib.mkEnableOption "Enable storage pool";
 
       devices = lib.mkOption {
         type = lib.types.listOf lib.types.str;
@@ -101,6 +102,45 @@ in {
               };
             };
           };
+
+          # Other disks
+          # Use Disk 1 if it is available
+          disk1 = (lib.mkIf (builtins.elemAt cfg.zfs.devices 1 != "")) {
+            type = "disk";
+            device = builtins.elemAt cfg.zfs.devices 1;
+            content = {
+              type = "gpt";
+              partitions = {
+                # A member of the ZStorage pool
+                zfs = {
+                  size = "100%";
+                  content = {
+                    type = "zfs";
+                    pool = "zstorage";
+                  };
+                };
+              };
+            };
+          };
+
+          # Use Disk 2 if it is available
+          disk2 = (lib.mkIf (builtins.elemAt cfg.zfs.devices 2 != "")) {
+            type = "disk";
+            device = builtins.elemAt cfg.zfs.devices 2;
+            content = {
+              type = "gpt";
+              partitions = {
+                # A member of the ZStorage pool
+                zfs = {
+                  size = "100%";
+                  content = {
+                    type = "zfs";
+                    pool = "zstorage";
+                  };
+                };
+              };
+            };
+          };
         };
 
         # ZFS Pools
@@ -178,6 +218,41 @@ in {
                 };
                 mountpoint = "${config.coblelab.impermanence.persistDirectory}";
                 postCreateHook = "zfs snapshot zroot/persist@empty";
+              };
+            };
+          };
+
+          # Storage Pool
+          zstorage = (lib.mkIf cfg.zfs.enableStoragePool) {
+            type = "zpool";
+            options = {
+              ashift = "12";
+              autotrim = "on";
+            };
+
+            datasets = {
+              # Construct the layout of the Storage Pool
+              # Reserved (space that is gauranteed to be available to the pool)
+              reserved = {
+                type = "zfs_fs";
+                options = {
+                  canmount = "off";
+                  mountpoint = "none";
+                  reservation = "${cfg.zfs.reservation}";
+                };
+              };
+
+              # Storage
+              storage = {
+                type = "zfs_fs";
+                mountpoint = "/storage";
+                options = {
+                  atime = "off";
+                  canmount = "on";
+                  mountpoint = "legacy";
+                  "com.sun:auto-snapshot" = "false";
+                };
+                postCreateHook = "zfs snapshot zstorage/storage@empty";
               };
             };
           };
