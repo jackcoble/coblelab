@@ -41,6 +41,7 @@
 
   # Backups
   coblelab.backups.enable = true;
+  coblelab.timeMachine.enable = true;
 
   # Disable sudo password for users in the "wheel" group
   security.sudo.wheelNeedsPassword = false;
