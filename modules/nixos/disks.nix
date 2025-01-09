@@ -192,7 +192,7 @@ in {
     # If impermanence is enabled, we should roll back to the empty root snapshot
     # on each boot
     (lib.mkIf (config.coblelab.impermanence.enable) {
-      boot.initrd.postDeviceCommands = lib.mkAfter ''
+      boot.initrd.postResumeCommands = lib.mkAfter ''
         echo "Rolling back to empty snapshot..."
         zfs rollback -r zroot/root@empty
       '';
