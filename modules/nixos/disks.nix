@@ -1,5 +1,5 @@
 /*
-This disks module prepares my disks and filesystems (BTRFS) ready for installation.
+This disks module prepares my disks and filesystems (ZFS) ready for installation.
 */
 {
   options,
@@ -13,8 +13,30 @@ in {
     enable = lib.mkEnableOption "Disk configuration";
     systemd-boot = lib.mkEnableOption "Use systemd-boot as the bootloader";
 
-    btrfs = {
-      enable = lib.mkEnableOption "Use BTRFS filesystem";
+    zfs = {
+      enable = lib.mkEnableOption "Use ZFS filesystem";
+
+      devices = lib.mkOption {
+        type = lib.types.list lib.types.str;
+        default = [
+          "/dev/disk/by-id/ata-512GB_SSD_MP33B21003510" # 512GB Boot NVMe
+          "/dev/disk/by-id/usb-Micron_CT1000X9SSD9_2419E8D193A0-0:0" # 1TB External Crucial X9 SSD
+          "/dev/disk/by-id/usb-SSK_SSK_Storage_DD564198838B8-0:0" # 1TB Crucial P2 CT1000P2SSD8 NVMe (External USB-C Enclosure)
+        ];
+        description = "List of devices to use for ZFS";
+      };
+
+      hostId = lib.mkOption {
+        type = lib.types.str;
+        default = "17bdf883"; # `head -c 8 /etc/machine-id`
+        description = "Host ID (derived from machine id)";
+      };
+
+      reservation = lib.mkOption {
+        type = lib.types.str;
+        default = "20GiB";
+        description = "ZFS reservation for pool";
+      };
     };
   };
 
@@ -27,26 +49,19 @@ in {
       boot.loader.timeout = 3;
     })
 
-    # BTRFS
-    (lib.mkIf (cfg.enable && cfg.btrfs.enable) {
-      # Partition disks delcaratively with disko
-      disko.devices = {
-        # tmpfs for ephemeral root
-        nodev = {
-          "/" = {
-            fsType = "tmpfs";
-            mountOptions = [
-              "defaults"
-              "size=2G"
-              "mode=755"
-            ];
-          };
-        };
+    # ZFS
+    (lib.mkIf (cfg.enable && cfg.zfs.enable) {
+      boot.supportedFilesystems = ["zfs" "vfat"];
+      networking.hostId = cfg.zfs.hostId;
+      services.zfs.autoScrub.enable = true;
 
+      # Disko configuration for Root partition
+      disko.devices = {
         disk = {
-          main = {
+          # Boot NVMe Drive
+          "ata-512GB_SSD_MP33B21003510" = {
             type = "disk";
-            device = "/dev/sda";
+            device = builtins.elemAt cfg.zfs.devices 0;
             content = {
               type = "gpt";
               partitions = {
@@ -66,45 +81,20 @@ in {
                   };
                 };
 
-                # LUKS partition
+                # LUKS Partition (contains ZFS Root)
                 luks = {
                   size = "100%";
                   label = "luks";
                   content = {
                     type = "luks";
-                    name = "crypted";
-                    extraOpenArgs = [
-                      "--allow-discards"
-                      "--perf-no_read_workqueue"
-                      "--perf-no_write_workqueue"
-                    ];
+                    name = "cryptroot";
+                    settings.allowDiscards = true;
+                    passwordFile = "/tmp/cryptroot.key"; # Supplied via nixos-install
 
-                    # BTRFS filesystem
+                    # ZFS Root
                     content = {
-                      type = "btrfs";
-                      extraArgs = ["-L" "nixos" "-f"];
-
-                      subvolumes = {
-                        "@home" = {
-                          mountpoint = "/home";
-                          mountOptions = ["compress=zstd" "noatime"];
-                        };
-
-                        "@nix" = {
-                          mountpoint = "/nix";
-                          mountOptions = ["compress=zstd" "noatime"];
-                        };
-
-                        "@persist" = {
-                          mountpoint = "/persist";
-                          mountOptions = ["compress=zstd" "noatime"];
-                        };
-
-                        "@swap" = {
-                          mountpoint = "/swap";
-                          swap.swapfile.size = "32G";
-                        };
-                      };
+                      type = "zfs";
+                      pool = "zroot";
                     };
                   };
                 };
@@ -112,10 +102,112 @@ in {
             };
           };
         };
+
+        # ZFS Pools
+        zpool = {
+          # Root Pool
+          zroot = {
+            type = "zpool";
+            mode = ""; # TODO: Only have 1 drive so this is blank for now
+            rootFsOptions = {
+              compression = "zstd";
+              mountpoint = "none";
+              relatime = "on";
+              "com.sun:auto-snapshot" = "false";
+            };
+
+            options = {
+              ashift = "12";
+              autotrim = "on";
+            };
+
+            datasets = {
+              # Construct the layout of the Root (/) partition
+              # Reserved (space that is gauranteed to be available to the pool)
+              reserved = {
+                type = "zfs_fs";
+                options = {
+                  canmount = "off";
+                  mountpoint = "none";
+                  reservation = "${cfg.zfs.reservation}";
+                };
+              };
+
+              # Root
+              root = {
+                type = "zfs_fs";
+                options = {
+                  mountpoint = "legacy";
+                  "com.sun:auto-snapshot" = "false";
+                };
+                mountpoint = "/";
+                postCreateHook = "zfs snapshot zroot/root@empty";
+              };
+
+              # Nix
+              nix = {
+                type = "zfs_fs";
+                mountpoint = "/nix";
+                options = {
+                  atime = "off";
+                  canmount = "on";
+                  mountpoint = "legacy";
+                  "com.sun:auto-snapshot" = "false";
+                };
+                postCreateHook = "zfs snapshot zroot/nix@empty";
+              };
+
+              # Home
+              home = {
+                type = "zfs_fs";
+                mountpoint = "/home";
+                options = {
+                  atime = "off";
+                  canmount = "on";
+                  mountpoint = "legacy";
+                  "com.sun:auto-snapshot" = "false";
+                };
+                postCreateHook = "zfs snapshot zroot/home@empty";
+              };
+
+              # Persist (is backed up)
+              persistBackup = {
+                type = "zfs_fs";
+                options = {
+                  mountpoint = "legacy";
+                  "com.sun:auto-snapshot" = "false";
+                };
+                mountpoint = "${config.coblelab.impermanence.persistDirectory}/backup";
+                postCreateHook = "zfs snapshot zroot/persist-backup@empty";
+              };
+
+              # Persist (is not backed up, but still want data persisted locally)
+              persistNoBackup = {
+                type = "zfs_fs";
+                options = {
+                  mountpoint = "legacy";
+                  "com.sun:auto-snapshot" = "false";
+                };
+                mountpoint = "${config.coblelab.impermanence.persistDirectory}/nobackup";
+                postCreateHook = "zfs snapshot zroot/persist-nobackup@empty";
+              };
+            };
+          };
+        };
       };
 
-      # Filesystems need to be available for the system to boot
-      fileSystems."${config.coblelab.impermanence.persistDirectory}".neededForBoot = true;
+      # Filesystems need to be available for boot
+      # Persistence directory is needed for Impermanence
+      fileSystems."${config.coblelab.impermanence.persistDirectory}/backup".neededForBoot = true;
+      fileSystems."${config.coblelab.impermanence.persistDirectory}/nobackup".neededForBoot = true;
+    })
+
+    # If impermanence is enabled, we should roll back to the empty root snapshot
+    # on each boot
+    (lib.mkIf (config.coblelab.impermanence.enable) {
+      boot.initrd.postDeviceCommands = lib.mkAfter ''
+        zfs rollback -r zroot/root@empty
+      '';
     })
   ];
 }

@@ -18,12 +18,7 @@
   # Disks.
   coblelab.disks.enable = true;
   coblelab.disks.systemd-boot = true;
-  coblelab.disks.btrfs.enable = true;
-
-  # Supported Filesystems
-  boot.supportedFilesystems = [ "btrfs" "zfs" ];
-  boot.zfs.extraPools = ["tank"];
-  services.zfs.autoScrub.enable = true;
+  coblelab.disks.zfs.enable = true;
 
   # Remote unlock LUKS disk
   coblelab.remoteUnlock.enable = true;
@@ -35,10 +30,6 @@
   # Networking.
   networking.networkmanager.enable = true;
   networking.hostName = "nuc01";
-
-  # Host ID (derived from machine id)
-  # `head -c 8 /etc/machine-id`
-  networking.hostId = "17bdf883";
 
   # Fixes DNS not working after initrd
   # https://github.com/NixOS/nixpkgs/issues/63941#issuecomment-2081126437
