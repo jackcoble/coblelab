@@ -28,6 +28,7 @@ This backups module uses Restic to backup
         # What do we want to back up?
         paths = [
           "/persist"
+          "/storage"
         ];
 
         # Backup schedule

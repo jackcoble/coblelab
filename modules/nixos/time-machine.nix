@@ -30,6 +30,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    # Create the Time Machine backup directory
+    # Permissions are set to 750, so only the `time-machine` user can access it
+    systemd.tempfiles.rules = [
+      "D ${cfg.directory} 750 time-machine time-machine"
+    ];
+
     # Create a dedicated user for Time Machine backups (accessed via SMB)
     # Password manually needs to be set with: `smbpasswd -a time-machine`
     users.groups.time-machine = {};
