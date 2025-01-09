@@ -225,6 +225,7 @@ in {
           # Storage Pool
           zstorage = (lib.mkIf cfg.zfs.enableStoragePool) {
             type = "zpool";
+            mode = "mirror"; # Mirror for redundancy
             options = {
               ashift = "12";
               autotrim = "on";
