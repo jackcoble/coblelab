@@ -81,4 +81,4 @@ else
 fi
 
 # Install NixOS
-nix run github:nix-community/nixos-anywhere -- --debug --extra-files "$temp" --disk-encryption-keys /tmp/secret.key /tmp/secret.key  --disko-mode "$disko_mode" --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote
+nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --disk-encryption-keys /tmp/secret.key /tmp/secret.key  --disko-mode "$disko_mode" --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote
