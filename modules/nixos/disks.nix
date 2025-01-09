@@ -17,7 +17,7 @@ in {
       enable = lib.mkEnableOption "Use ZFS filesystem";
 
       devices = lib.mkOption {
-        type = lib.types.list lib.types.str;
+        type = lib.types.listOf lib.types.str;
         default = [
           "/dev/disk/by-id/ata-512GB_SSD_MP33B21003510" # 512GB Boot NVMe
           "/dev/disk/by-id/usb-Micron_CT1000X9SSD9_2419E8D193A0-0:0" # 1TB External Crucial X9 SSD
