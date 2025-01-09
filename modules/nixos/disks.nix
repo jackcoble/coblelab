@@ -84,12 +84,12 @@ in {
                 # LUKS Partition (contains ZFS Root)
                 luks = {
                   size = "100%";
-                  label = "luks";
+
                   content = {
                     type = "luks";
                     name = "cryptroot";
+                    passwordFile = "/tmp/secret.key"; # Supplied via nixos-install
                     settings.allowDiscards = true;
-                    passwordFile = "/tmp/cryptroot.key"; # Supplied via nixos-install
 
                     # ZFS Root
                     content = {
@@ -170,26 +170,15 @@ in {
                 postCreateHook = "zfs snapshot zroot/home@empty";
               };
 
-              # Persist (is backed up)
-              persistBackup = {
+              # Persist
+              persist = {
                 type = "zfs_fs";
                 options = {
                   mountpoint = "legacy";
                   "com.sun:auto-snapshot" = "false";
                 };
-                mountpoint = "${config.coblelab.impermanence.persistDirectory}/backup";
-                postCreateHook = "zfs snapshot zroot/persist-backup@empty";
-              };
-
-              # Persist (is not backed up, but still want data persisted locally)
-              persistNoBackup = {
-                type = "zfs_fs";
-                options = {
-                  mountpoint = "legacy";
-                  "com.sun:auto-snapshot" = "false";
-                };
-                mountpoint = "${config.coblelab.impermanence.persistDirectory}/nobackup";
-                postCreateHook = "zfs snapshot zroot/persist-nobackup@empty";
+                mountpoint = "${config.coblelab.impermanence.persistDirectory}";
+                postCreateHook = "zfs snapshot zroot/persist@empty";
               };
             };
           };
@@ -198,8 +187,7 @@ in {
 
       # Filesystems need to be available for boot
       # Persistence directory is needed for Impermanence
-      fileSystems."${config.coblelab.impermanence.persistDirectory}/backup".neededForBoot = true;
-      fileSystems."${config.coblelab.impermanence.persistDirectory}/nobackup".neededForBoot = true;
+      fileSystems."${config.coblelab.impermanence.persistDirectory}".neededForBoot = true;
     })
 
     # If impermanence is enabled, we should roll back to the empty root snapshot

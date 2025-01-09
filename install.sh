@@ -57,6 +57,20 @@ echo "Add this public key to .sops.yaml and re-encrypt the keys with: 'sops upda
 echo "Press enter to continue."
 read
 
+# Ask the user for the Disk encryption key to set, confirm it twice
+read -s -p "Enter the Disk Encryption Key: " disk_key
+echo
+read -s -p "Confirm the Disk Encryption Key: " disk_key_confirm
+echo
+
+if [ "$disk_key" != "$disk_key_confirm" ]; then
+  echo "The keys do not match. Exiting."
+  exit 1
+fi
+
+# Write the key to /tmp/secret.key (supplied to NixOS installation)
+echo "$disk_key" > "/tmp/secret.key"
+
 # Ask the user if they are reinstalling the machine.
 # Sets the "disko mode" - mount disks or format them
 read -p "Are you reinstalling the machine? (y/N): " disko_mode
@@ -67,4 +81,4 @@ else
 fi
 
 # Install NixOS
-nix run github:nix-community/nixos-anywhere -- --extra-files "$temp" --disko-mode "$disko_mode" --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote
+nix run github:nix-community/nixos-anywhere -- --debug --extra-files "$temp" --disk-encryption-keys /tmp/secret.key /tmp/secret.key  --disko-mode "$disko_mode" --flake '.#nuc01' --target-host nixos@192.168.0.10 --build-on-remote
