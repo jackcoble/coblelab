@@ -59,7 +59,7 @@ in {
       disko.devices = {
         disk = {
           # Boot NVMe Drive
-          "ata-512GB_SSD_MP33B21003510" = {
+          boot-nvme = {
             type = "disk";
             device = builtins.elemAt cfg.zfs.devices 0;
             content = {
@@ -108,7 +108,6 @@ in {
           # Root Pool
           zroot = {
             type = "zpool";
-            mode = ""; # TODO: Only have 1 drive so this is blank for now
             rootFsOptions = {
               compression = "zstd";
               mountpoint = "none";

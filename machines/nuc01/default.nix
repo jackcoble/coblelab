@@ -18,7 +18,16 @@
   # Disks.
   coblelab.disks.enable = true;
   coblelab.disks.systemd-boot = true;
+
+  # ZFS
   coblelab.disks.zfs.enable = true;
+  coblelab.disks.zfs.devices = [
+    "/dev/disk/by-id/ata-512GB_SSD_MP33B21003510" # 512GB Boot NVMe
+    "/dev/disk/by-id/usb-Micron_CT1000X9SSD9_2419E8D193A0-0:0" # 1TB External Crucial X9 SSD
+    "/dev/disk/by-id/usb-SSK_SSK_Storage_DD564198838B8-0:0" # 1TB Crucial P2 CT1000P2SSD8 NVMe (External USB-C Enclosure)
+  ];
+  coblelab.disks.zfs.hostId = "17bdf883";
+  coblelab.disks.zfs.reservation = "10GiB";
 
   # Remote unlock LUKS disk
   coblelab.remoteUnlock.enable = true;
