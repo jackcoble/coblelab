@@ -41,20 +41,32 @@ in {
         nmbd.enable = true;
         openFirewall = true;
 
-        # Create the shares
-        settings.global = lib.mkMerge [
-          # Time Machine support
-          (lib.mkIf (cfg.timeMachine.enable) {
-            "vfs objects" = "fruit streams_xattr";
-            "fruit:metadata" = "stream";
-            "fruit:model" = "MacSamba";
-            "fruit:veto_appledouble" = "no";
-            "fruit:nfs_aces" = "no";
-            "fruit:wipe_intentionally_left_blank_rfork" = "yes";
-            "fruit:delete_empty_adfiles" = "yes";
-            "fruit:posix_rename" = "yes";
-          })
-        ];
+        settings = {
+          "global" = lib.mkMerge [
+            # Default settings
+            {
+              "workgroup" = "WORKGROUP";
+              "server string" = "${config.networking.hostName} Samba Server";
+              "netbios name" = "${config.networking.hostName}";
+              "security" = "user";
+            }
+
+            # Time Machine settings
+            (lib.mkIf (cfg.timeMachine.enable) {
+              "vfs objects" = "fruit streams_xattr";
+              "fruit:metadata" = "stream";
+              "fruit:model" = "MacSamba";
+              "fruit:veto_appledouble" = "no";
+              "fruit:nfs_aces" = "no";
+              "fruit:wipe_intentionally_left_blank_rfork" = "yes";
+              "fruit:delete_empty_adfiles" = "yes";
+              "fruit:posix_rename" = "yes";
+            })
+          ];
+
+          # Add the shares
+          shares = cfg.shares;
+        };
       };
     })
 
