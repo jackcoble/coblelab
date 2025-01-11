@@ -40,7 +40,7 @@ in {
             # Default settings
             {
               "workgroup" = "WORKGROUP";
-              "server string" = "${config.networking.hostName} Samba Server";
+              "server string" = "${config.networking.hostName}";
               "netbios name" = "${config.networking.hostName}";
               "security" = "user";
             }
