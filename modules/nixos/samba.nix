@@ -72,27 +72,18 @@ in {
 
     # Time Machine support
     (lib.mkIf (cfg.enable && cfg.timeMachine.enable) {
-      # Create a new user dedicated to Time Machine backups
-      # Password manually needs to be set with: `smbpasswd -a time-machine`
-      users.groups.time-machine = {};
-      users.users.time-machine = {
-        isSystemUser = true;
-        home = cfg.timeMachine.directory;
-        description = "Time Machine Backup";
-        group = "time-machine";
-      };
-
       # Create the Time Machine backup directory
-      # Permissions are set to 750, so only the `time-machine` user can access it
+      # Permissions are set to 750, so only the `jack` user can access it
+      # After don't forget: `smbpasswd -a jack`
       systemd.tmpfiles.rules = [
-        "D ${cfg.timeMachine.directory} 750 time-machine time-machine"
+        "D ${cfg.timeMachine.directory} 750 jack jack"
       ];
 
       # Create the Time Machine share
       services.samba.settings."Time Machine" = {
         "path" = cfg.timeMachine.directory;
         "comment" = "Time Machine";
-        "valid users" = "time-machine";
+        "valid users" = "jack";
         "available" = "yes";
         "writable" = "yes";
         "fruit:time machine" = "yes";
