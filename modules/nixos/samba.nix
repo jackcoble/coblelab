@@ -76,7 +76,7 @@ in {
       # Permissions are set to 750, so only the `jack` user can access it
       # After don't forget: `smbpasswd -a jack`
       systemd.tmpfiles.rules = [
-        "D ${cfg.timeMachine.directory} 750 jack jack"
+        "d ${cfg.timeMachine.directory} 750 jack jack"
       ];
 
       # Create the Time Machine share
