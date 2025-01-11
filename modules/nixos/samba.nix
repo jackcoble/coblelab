@@ -25,12 +25,6 @@ in {
         description = "The maximum size of the Time Machine backups.";
       };
     };
-
-    shares = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
-      default = {};
-      description = "A set of shares to be configured.";
-    };
   };
 
   config = lib.mkMerge [
@@ -64,8 +58,14 @@ in {
             })
           ];
 
-          # Add the shares
-          shares = cfg.shares;
+          # Shares (TODO: Make this configurable)
+          "Photos" = {
+            "path" = "/storage/photos";
+            "comment" = "Photos";
+            "valid users" = "jack";
+            "available" = "yes";
+            "writable" = "yes";
+          };
         };
       };
     })
