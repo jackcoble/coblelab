@@ -229,6 +229,7 @@ in {
             options = {
               ashift = "12";
               autotrim = "on";
+              encryption = "aes-256-gcm";
             };
 
             datasets = {
