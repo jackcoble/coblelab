@@ -30,6 +30,9 @@ in {
   config = lib.mkMerge [
     # Samba server
     (lib.mkIf (cfg.enable) {
+      # Create a group for Samba users
+      users.groups.samba-users = {};
+
       services.samba = {
         enable = true;
         nmbd.enable = true;
@@ -43,6 +46,7 @@ in {
               "server string" = "${config.networking.hostName}";
               "netbios name" = "${config.networking.hostName}";
               "security" = "user";
+              "valid users" = "@samba-users";
             }
 
             # Time Machine settings
@@ -62,7 +66,6 @@ in {
           "Photos" = {
             "path" = "/zstorage/photos";
             "comment" = "Photos";
-            "valid users" = "jack";
             "available" = "yes";
             "writable" = "yes";
           };
@@ -73,17 +76,16 @@ in {
     # Time Machine support
     (lib.mkIf (cfg.enable && cfg.timeMachine.enable) {
       # Create the Time Machine backup directory
-      # Permissions are set to 750, so only the `jack` user can access it
+      # Permissions are set to 750, so only users in the "samba-users" group can access it
       # After don't forget: `smbpasswd -a jack`
       systemd.tmpfiles.rules = [
-        "d ${cfg.timeMachine.directory} 750 jack jack"
+        "d ${cfg.timeMachine.directory} 750 - samba-users"
       ];
 
       # Create the Time Machine share
       services.samba.settings."Time Machine" = {
         "path" = cfg.timeMachine.directory;
         "comment" = "Time Machine";
-        "valid users" = "jack";
         "available" = "yes";
         "writable" = "yes";
         "fruit:time machine" = "yes";
