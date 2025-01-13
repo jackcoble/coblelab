@@ -38,6 +38,13 @@
   networking.networkmanager.enable = true;
   networking.hostName = "nuc01";
 
+  # Tailscale
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+    authKeyFile = config.sops.secrets.tailscale-key.path;
+  };
+
   # Fixes DNS not working after initrd
   # https://github.com/NixOS/nixpkgs/issues/63941#issuecomment-2081126437
   boot.initrd.network.udhcpc.enable = true;
