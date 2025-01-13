@@ -42,6 +42,6 @@ The encryption passphrase is supplied at `/run/secrets/zfs/master`
 
 ```
 $ zpool create -o ashift=12 \
-    -O encryption=on keylocation=file:///run/secrets/zfs/master keyformat=passphrase \
+    -O encryption=on -O keylocation=file:///run/secrets/zfs/master -O keyformat=passphrase \
     zstorage mirror /dev/disk/by-id/usb-Micron_CT1000X9SSD9_2419E8D193A0-0:0 /dev/disk/by-id/usb-SSK_SSK_Storage_DD564198838B8-0:0
 ```
