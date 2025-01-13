@@ -1,5 +1,12 @@
 <h1 align="center">CobleLab</h1>
 <p align="center">My personal NixOS flake for all of my systems and servers.</h1>
+<div align="center">
+    <img src="https://img.shields.io/badge/NIXOS-5277C3.svg?style=for-the-badge&logo=NixOS&logoColor=white" />
+    <img src="https://img.shields.io/badge/NixOS-24.11-blue?style=for-the-badge&logo=nixos&logoColor=white" />
+    <a href="https://github.com/jackcoble/coblelab/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/jackcoble/coblelab?style=for-the-badge" />
+    </a>
+</div>
 
 ## ⚡️ Features
 
