@@ -17,7 +17,7 @@ in {
     users.users.jack = {
       uid = 1000; # Hardcoded UID
       isNormalUser = true;
-      extraGroups = ["wheel", "samba-users"];
+      extraGroups = ["wheel" "samba-users"];
       hashedPasswordFile = config.sops.secrets.jack-password.path;
       openssh.authorizedKeys.keys = [sshPublicKeys.user.jack];
       group = "jack";
