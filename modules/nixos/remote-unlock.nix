@@ -29,6 +29,10 @@ boot.initrd.availableKernelModules
 
   config = lib.mkIf config.coblelab.remoteUnlock.enable {
     boot.kernelParams = ["ip=dhcp"];
+
+    # Copy the encryption key to the initrd
+    boot.initrd.secrets."/zfs-master.key" = config.sops.secrets."zfs/master".path;
+
     boot.initrd.network = {
       enable = true;
 
@@ -47,7 +51,7 @@ boot.initrd.availableKernelModules
         zpool import -a
 
         # Unlock pools
-        zfs load-key -a
+        zfs load-key -L file:///zfs-master.key -a
       '';
     };
 
