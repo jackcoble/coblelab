@@ -246,10 +246,6 @@ in {
           };
         };
       };
-
-      # Filesystems need to be available for boot
-      # Persistence directory is needed for Impermanence
-      fileSystems."${config.coblelab.impermanence.persistDirectory}".neededForBoot = true;
     })
 
     # If impermanence is enabled, we should roll back to the empty root snapshot
@@ -259,6 +255,10 @@ in {
       boot.initrd.postResumeCommands = lib.mkAfter ''
         zfs rollback -r zroot/root@empty
       '';
+
+      # Filesystems need to be available for boot
+      # Persistence directory is needed for Impermanence
+      fileSystems."${config.coblelab.impermanence.persistDirectory}".neededForBoot = true;
     })
   ];
 }
