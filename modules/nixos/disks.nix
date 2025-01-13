@@ -230,6 +230,7 @@ in {
               ashift = "12";
             };
             rootFsOptions = {
+              canmount = "off";
               encryption = "on";
               keylocation = config.sops.secrets."zfs/master".path;
               keyformat = "passphrase";
