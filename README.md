@@ -1,4 +1,5 @@
-# CobleLab
+<h1 align="center">CobleLab</h1>
+<p align="center">My personal NixOS flake for all of my systems and servers.</h1>
 
 ## ⚡️ Features
 
