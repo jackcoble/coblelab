@@ -242,19 +242,6 @@ in {
                   reservation = "${cfg.zfs.reservation}";
                 };
               };
-
-              # Storage
-              storage = {
-                type = "zfs_fs";
-                mountpoint = "/storage";
-                options = {
-                  atime = "off";
-                  canmount = "on";
-                  mountpoint = "legacy";
-                  "com.sun:auto-snapshot" = "false";
-                };
-                postCreateHook = "zfs snapshot zstorage/storage@empty";
-              };
             };
           };
         };
