@@ -235,7 +235,6 @@ in {
               keylocation = config.sops.secrets."zfs/master".path;
               keyformat = "passphrase";
             };
-            mountpoint = "/storage";
 
             datasets = {
               # Construct the layout of the Storage Pool
@@ -246,6 +245,17 @@ in {
                   canmount = "off";
                   mountpoint = "none";
                   reservation = "${cfg.zfs.reservation}";
+                };
+              };
+
+              # Photos
+              photos = {
+                type = "zfs_fs";
+                options = {
+                  encryption = "on";
+                  atime = "off";
+                  canmount = "on";
+                  "com.sun:auto-snapshot" = "false";
                 };
               };
             };
