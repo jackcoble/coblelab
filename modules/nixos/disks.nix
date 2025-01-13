@@ -229,6 +229,12 @@ in {
             options = {
               ashift = "12";
             };
+            rootFsOptions = {
+              encryption = "on";
+              keylocation = config.sops.secrets."zfs/master".path;
+              keyformat = "passphrase";
+            };
+            mountpoint = "/storage";
 
             datasets = {
               # Construct the layout of the Storage Pool
