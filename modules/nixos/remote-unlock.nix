@@ -39,6 +39,16 @@ boot.initrd.availableKernelModules
         authorizedKeys = config.coblelab.remoteUnlock.authorizedKeys;
         hostKeys = ["/etc/ssh/ssh_boot_ed25519_key"];
       };
+
+      postCommands = ''
+        sleep 2
+
+        # Import all ZPools
+        zpool import -a
+
+        # Unlock pools
+        zfs load-key -a
+      '';
     };
 
     # Persist the SSH Boot Keys
