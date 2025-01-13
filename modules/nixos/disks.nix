@@ -15,15 +15,10 @@ in {
 
     zfs = {
       enable = lib.mkEnableOption "Use ZFS filesystem for Root";
-      enableStoragePool = lib.mkEnableOption "Enable storage pool";
 
       devices = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [
-          "/dev/disk/by-id/ata-512GB_SSD_MP33B21003510" # 512GB Boot NVMe
-          "/dev/disk/by-id/usb-Micron_CT1000X9SSD9_2419E8D193A0-0:0" # 1TB External Crucial X9 SSD
-          "/dev/disk/by-id/usb-SSK_SSK_Storage_DD564198838B8-0:0" # 1TB Crucial P2 CT1000P2SSD8 NVMe (External USB-C Enclosure)
-        ];
+        default = [];
         description = "List of devices to use for ZFS";
       };
 
@@ -97,45 +92,6 @@ in {
                       type = "zfs";
                       pool = "zroot";
                     };
-                  };
-                };
-              };
-            };
-          };
-
-          # Other disks
-          # Use Disk 1 if it is available
-          disk1 = (lib.mkIf (builtins.elemAt cfg.zfs.devices 1 != "")) {
-            type = "disk";
-            device = builtins.elemAt cfg.zfs.devices 1;
-            content = {
-              type = "gpt";
-              partitions = {
-                # A member of the ZStorage pool
-                zfs = {
-                  size = "100%";
-                  content = {
-                    type = "zfs";
-                    pool = "zstorage";
-                  };
-                };
-              };
-            };
-          };
-
-          # Use Disk 2 if it is available
-          disk2 = (lib.mkIf (builtins.elemAt cfg.zfs.devices 2 != "")) {
-            type = "disk";
-            device = builtins.elemAt cfg.zfs.devices 2;
-            content = {
-              type = "gpt";
-              partitions = {
-                # A member of the ZStorage pool
-                zfs = {
-                  size = "100%";
-                  content = {
-                    type = "zfs";
-                    pool = "zstorage";
                   };
                 };
               };
@@ -218,45 +174,6 @@ in {
                 };
                 mountpoint = "${config.coblelab.impermanence.persistDirectory}";
                 postCreateHook = "zfs snapshot zroot/persist@empty";
-              };
-            };
-          };
-
-          # Storage Pool
-          zstorage = (lib.mkIf cfg.zfs.enableStoragePool) {
-            type = "zpool";
-            mode = "mirror"; # Mirror for redundancy
-            options = {
-              ashift = "12";
-            };
-            rootFsOptions = {
-              canmount = "off";
-              encryption = "on";
-              keylocation = config.sops.secrets."zfs/master".path;
-              keyformat = "passphrase";
-            };
-
-            datasets = {
-              # Construct the layout of the Storage Pool
-              # Reserved (space that is gauranteed to be available to the pool)
-              reserved = {
-                type = "zfs_fs";
-                options = {
-                  canmount = "off";
-                  mountpoint = "none";
-                  reservation = "${cfg.zfs.reservation}";
-                };
-              };
-
-              # Photos
-              photos = {
-                type = "zfs_fs";
-                options = {
-                  encryption = "on";
-                  atime = "off";
-                  canmount = "on";
-                  "com.sun:auto-snapshot" = "false";
-                };
               };
             };
           };
