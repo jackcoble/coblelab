@@ -149,7 +149,6 @@ in {
                   mountpoint = "legacy";
                   "com.sun:auto-snapshot" = "false";
                 };
-                postCreateHook = "zfs snapshot zroot/nix@empty";
               };
 
               # Home
@@ -162,7 +161,6 @@ in {
                   mountpoint = "legacy";
                   "com.sun:auto-snapshot" = "false";
                 };
-                postCreateHook = "zfs snapshot zroot/home@empty";
               };
 
               # Persist
@@ -173,7 +171,6 @@ in {
                   "com.sun:auto-snapshot" = "false";
                 };
                 mountpoint = "${config.coblelab.impermanence.persistDirectory}";
-                postCreateHook = "zfs snapshot zroot/persist@empty";
               };
             };
           };
