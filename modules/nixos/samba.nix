@@ -15,7 +15,7 @@ in {
 
       directory = lib.mkOption {
         type = lib.types.str;
-        default = "/storage/backups/time-machine";
+        default = "/zstorage/backups/time-machine";
         description = "The directory to store the Time Machine backups.";
       };
 
@@ -60,7 +60,7 @@ in {
 
           # Shares (TODO: Make this configurable)
           "Photos" = {
-            "path" = "/storage/photos";
+            "path" = "/zstorage/photos";
             "comment" = "Photos";
             "valid users" = "jack";
             "available" = "yes";
