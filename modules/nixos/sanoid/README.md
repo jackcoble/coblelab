@@ -8,7 +8,7 @@ My backup strategy involves storing multiple generations of snapshots over a per
 
 | Snapshot Frequency | Retention Period         | Purpose                                                                       |
 | ------------------ | ------------------------ | ----------------------------------------------------------------------------- |
-| Every 15 minutes   | 6 hours (90 snapshots)   | Capture frequent changes to minimise data loss for highly active files.       |
+| Every 15 minutes   | 6 hours (24 snapshots)   | Capture frequent changes to minimise data loss for highly active files.       |
 | Hourly             | 24 hours (24 snapshots)  | Frequent recovery points for the majority of data.                            |
 | Daily              | 14 days (14 snapshots)   | Covers scenarios where I may not notice data missing for a few days.          |
 | Weekly             | 4 weeks (4 snapshots)    | Provides a safety net for if I need to recover less frequently accessed data. |

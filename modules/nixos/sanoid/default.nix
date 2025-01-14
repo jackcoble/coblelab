@@ -3,7 +3,7 @@
     enable = true;
 
     templates.backup = {
-      frequently = 90;
+      frequently = 24;
       hourly = 24;
       daily = 14;
       monthly = 12;
