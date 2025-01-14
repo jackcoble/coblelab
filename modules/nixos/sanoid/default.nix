@@ -3,7 +3,7 @@
     enable = true;
 
     # Interval is every 15 minutes
-    interval = "15min";
+    interval = "*:0/15";
 
     templates.backup = {
       frequently = 24;
