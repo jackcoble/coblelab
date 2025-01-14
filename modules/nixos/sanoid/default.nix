@@ -14,7 +14,7 @@
     };
 
     # ZFS Datasets to snapshot
-    datasets."zstorage/backup" = {
+    datasets."zstorage/backups" = {
       useTemplate = ["backup"];
     };
 
