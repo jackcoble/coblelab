@@ -2,6 +2,9 @@
   services.sanoid = {
     enable = true;
 
+    # Interval is every 15 minutes
+    interval = "*-*-* *:*/15:00";
+
     templates.backup = {
       frequently = 24;
       hourly = 24;
