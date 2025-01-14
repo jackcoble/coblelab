@@ -1,5 +1,6 @@
 {
   imports = [
+    ./sanoid
     ./users
 
     ./backups.nix
