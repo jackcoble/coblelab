@@ -1,11 +1,11 @@
 {
   imports = [
+    ./backups
     ./cloudflared
     ./pocket-id
     ./sanoid
     ./users
 
-    ./backups.nix
     ./disks.nix
     ./impermanence.nix
     ./remote-unlock.nix
