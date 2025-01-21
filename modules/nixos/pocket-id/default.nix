@@ -18,7 +18,7 @@ in {
 
     dataDir = lib.mkOption {
       type = lib.types.path;
-      default = /zstorage/docker/pocket-id;
+      default = null;
       description = "The directory where Pocket ID will store its data";
     };
 
@@ -38,7 +38,7 @@ in {
         "${cfg.dataDir}:/app/backend/data"
       ];
       ports = [
-        "127.0.0.1:${cfg.port}:8081"
+        "127.0.0.1:${toString cfg.port}:8081"
       ];
     };
   };

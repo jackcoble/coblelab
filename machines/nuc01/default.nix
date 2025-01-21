@@ -78,13 +78,16 @@
   coblelab.samba.timeMachine.enable = true;
 
   # Pocket ID (OIDC Provider)
-  coblelab.pocket-id.enable = true;
-  coblelab.pocket-id.environment = {
-    PUBLIC_APP_URL = "https://auth.coblelabs.net";
-    TRUST_PROXY = "true";
-    PUID = "1000";
-    PGID = "1000";
-    CADDY_PORT = "8081";
+  coblelab.pocket-id = {
+    enable = true;
+    dataDir = /zstorage/docker/pocket-id;
+    environment = {
+      PUBLIC_APP_URL = "https://auth.coblelabs.net";
+      TRUST_PROXY = "true";
+      PUID = "1000";
+      PGID = "1000";
+      CADDY_PORT = "8081";
+    };
   };
 
   # Disable sudo password for users in the "wheel" group
