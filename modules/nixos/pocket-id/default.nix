@@ -1,5 +1,5 @@
 {...}: {
-  virtualisation.oci-container.containers."pocket-id" = {
+  virtualisation.oci-containers.containers."pocket-id" = {
     image = "ghcr.io/stonith404/pocket-id";
 
     volumes = [
