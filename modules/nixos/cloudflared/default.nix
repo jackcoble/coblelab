@@ -21,7 +21,7 @@ in {
     services.cloudflared = {
       enable = true;
       tunnels = {
-        cfg.tunnelId = {
+        ${cfg.tunnelId} = {
           credentialsFile = "${config.sops.secrets.cloudflare-tunnel.path}";
           default = "http_status:404";
         };
