@@ -4,10 +4,10 @@
   options,
   ...
 }: let
-  cfg = config.coblelab.cloudflare;
+  cfg = config.coblelab.cloudflared;
 in {
   # Cloudflare Tunnel configuration options
-  options.coblelab.cloudflare = {
+  options.coblelab.cloudflared = {
     enable = lib.mkEnableOption "Enable Cloudflare Tunnels";
 
     tunnelId = lib.mkOption {
