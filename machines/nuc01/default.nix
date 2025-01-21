@@ -80,7 +80,7 @@
   # Pocket ID (OIDC Provider)
   coblelab.pocket-id = {
     enable = true;
-    dataDir = /zstorage/docker/pocket-id;
+    dataDir = "/zstorage/docker/pocket-id";
     environment = {
       PUBLIC_APP_URL = "https://auth.coblelabs.net";
       TRUST_PROXY = "true";

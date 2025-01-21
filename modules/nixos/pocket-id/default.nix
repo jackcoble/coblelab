@@ -17,7 +17,7 @@ in {
     };
 
     dataDir = lib.mkOption {
-      type = lib.types.path;
+      type = lib.types.str;
       default = null;
       description = "The directory where Pocket ID will store its data";
     };
