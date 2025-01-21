@@ -13,7 +13,7 @@
     environment = {
       # See the README for more information: https://github.com/stonith404/pocket-id?tab=readme-ov-file#environment-variables
       PUBLIC_APP_URL = "https://auth.coblelabs.net";
-      TRUST_PROXY = false;
+      TRUST_PROXY = "false";
       MAXMIND_LICENSE_KEY = "";
       PUID = "1000";
       PGID = "1000";
