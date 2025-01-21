@@ -16,7 +16,7 @@
       TRUST_PROXY = "true";
       PUID = "1000";
       PGID = "1000";
-      CADDY_PORT = "8081"
+      CADDY_PORT = "8081";
     };
   };
 }
