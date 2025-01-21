@@ -49,15 +49,6 @@
   coblelab.cloudflared.enable = true;
   coblelab.cloudflared.tunnelId = "eabac83f-e584-4e75-bbc7-cf1ff7b77c0e";
 
-  # Testing - Uptime Kuma
-  services.uptime-kuma = {
-    enable = true;
-    settings = {
-      HOST = "0.0.0.0";
-      PORT = "4000";
-    };
-  };
-
   # Fixes DNS not working after initrd
   # https://github.com/NixOS/nixpkgs/issues/63941#issuecomment-2081126437
   boot.initrd.network.udhcpc.enable = true;
