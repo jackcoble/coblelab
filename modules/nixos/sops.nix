@@ -24,7 +24,6 @@ This SOPS module takes care of loading secrets, decrypting them using the Host S
       mode = "0440";
       owner = "cloudflared";
       group = "cloudflared";
-      format = "json";
     };
   };
 }
