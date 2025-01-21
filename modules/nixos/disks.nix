@@ -5,6 +5,7 @@ This disks module prepares my disks and filesystems (ZFS) ready for installation
   options,
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.coblelab.disks;
@@ -50,6 +51,10 @@ in {
       boot.supportedFilesystems = ["zfs" "vfat"];
       networking.hostId = cfg.zfs.hostId;
       services.zfs.autoScrub.enable = true;
+
+      # Only use compatible Linux kernel, since ZFS can be behind
+      boot.kernelPackages = pkgs.linuxPackages; # Defaults to latest LTS
+      boot.kernelParams = ["nohibernate"];
 
       # Disko configuration for Root partition
       disko.devices = {
