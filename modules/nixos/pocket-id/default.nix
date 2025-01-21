@@ -15,8 +15,8 @@
       PUBLIC_APP_URL = "https://auth.coblelabs.net";
       TRUST_PROXY = false;
       MAXMIND_LICENSE_KEY = "";
-      PUID = 1000;
-      PGID = 1000;
+      PUID = "1000";
+      PGID = "1000";
     };
   };
 }
