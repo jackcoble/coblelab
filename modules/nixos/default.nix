@@ -2,6 +2,7 @@
   imports = [
     ./cloudflared
     ./glance
+    ./pocket-id
     ./sanoid
     ./users
 
