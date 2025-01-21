@@ -1,6 +1,7 @@
 {
   imports = [
     ./cloudflared
+    ./glance
     ./sanoid
     ./users
 
