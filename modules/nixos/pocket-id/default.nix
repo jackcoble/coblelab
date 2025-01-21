@@ -7,15 +7,16 @@
     ];
 
     ports = [
-      "127.0.0.1:11000:80"
+      "127.0.0.1:11000:8081"
     ];
 
     environment = {
       # See the README for more information: https://github.com/stonith404/pocket-id?tab=readme-ov-file#environment-variables
       PUBLIC_APP_URL = "https://auth.coblelabs.net";
-      TRUST_PROXY = "false";
+      TRUST_PROXY = "true";
       PUID = "1000";
       PGID = "1000";
+      CADDY_PORT = "8081"
     };
   };
 }
