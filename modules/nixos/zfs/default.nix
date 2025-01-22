@@ -96,6 +96,7 @@ in {
               normalization = "formD";
               relatime = "on";
               xattr = "sa";
+              compression = "lz4";
               mountpoint = "none";
               encryption = "aes-256-gcm";
               keyformat = "passphrase";
@@ -108,6 +109,7 @@ in {
               reserved = {
                 type = "zfs_fs";
                 options = {
+                  atime = "off";
                   canmount = "off";
                   mountpoint = "none";
                   reservation = "10GiB";
@@ -118,6 +120,8 @@ in {
               root = {
                 type = "zfs_fs";
                 options = {
+                  atime = "off";
+                  canmount = "on";
                   mountpoint = "legacy";
                 };
 
@@ -153,6 +157,8 @@ in {
               persist = {
                 type = "zfs_fs";
                 options = {
+                  atime = "off";
+                  canmount = "on";
                   mountpoint = "legacy";
                 };
 
