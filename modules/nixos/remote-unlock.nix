@@ -31,19 +31,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     /*
-    boot.kernelParams = ["ip=dhcp"];
-
-    boot.initrd.network = {
-      enable = true;
-
-      ssh = {
-        enable = true;
-        port = cfg.port;
-        shell = "/bin/cryptsetup-askpass";
-        authorizedKeys = cfg.authorizedKeys;
-        hostKeys = ["/etc/ssh/ssh_boot_ed25519_key"];
-      };
-    };
+    TODO: Re-enable when I can figure out systemd initrd
     */
   };
 }

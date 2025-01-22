@@ -98,9 +98,13 @@ in {
               xattr = "sa";
               compression = "lz4";
               mountpoint = "none";
+
+              # TODO: Enable encryption when I can figure out remote unlock
+              /*
               encryption = "aes-256-gcm";
               keyformat = "passphrase";
               keylocation = "file:///tmp/secret.key"; # Supplied via nixos-install
+              */
             };
 
             datasets = {
