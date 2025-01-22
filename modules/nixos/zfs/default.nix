@@ -65,21 +65,12 @@ in {
                   };
                 };
 
-                # LUKS Partition (contains ZFS Root)
-                luks = {
+                # ZFS Root (Native Encryption)
+                zfs = {
                   size = "100%";
-
                   content = {
-                    type = "luks";
-                    name = "cryptroot";
-                    passwordFile = "/tmp/secret.key"; # Supplied via nixos-install
-                    settings.allowDiscards = true;
-
-                    # ZFS Root
-                    content = {
-                      type = "zfs";
-                      pool = "zroot";
-                    };
+                    type = "zfs";
+                    pool = "zroot";
                   };
                 };
               };
@@ -106,6 +97,9 @@ in {
               relatime = "on";
               xattr = "sa";
               mountpoint = "none";
+              encryption = "aes-256-gcm";
+              keyformat = "passphrase";
+              keylocation = "file:///tmp/secret.key"; # Supplied via nixos-install
             };
 
             datasets = {
