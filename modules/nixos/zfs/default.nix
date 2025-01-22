@@ -28,9 +28,9 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      # Taken from https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/index.html
       boot.supportedFilesystems = ["zfs" "vfat"];
       boot.zfs.forceImportRoot = false;
+      boot.zfs.requestEncryptionCredentials = true;
       networking.hostId = cfg.hostId;
 
       # Extra pools to mount at boot
@@ -98,13 +98,9 @@ in {
               xattr = "sa";
               compression = "lz4";
               mountpoint = "none";
-
-              # TODO: Enable encryption when I can figure out remote unlock
-              /*
               encryption = "aes-256-gcm";
               keyformat = "passphrase";
-              keylocation = "file:///tmp/secret.key"; # Supplied via nixos-install
-              */
+              keylocation = "file:///tmp/secret.key";
             };
 
             datasets = {
