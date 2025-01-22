@@ -30,6 +30,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    /*
     boot.kernelParams = ["ip=dhcp"];
 
     boot.initrd.network = {
@@ -43,5 +44,6 @@ in {
         hostKeys = ["/etc/ssh/ssh_boot_ed25519_key"];
       };
     };
+    */
   };
 }
