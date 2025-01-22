@@ -8,7 +8,6 @@
     ./users
 
     ./disks.nix
-    ./impermanence.nix
     ./remote-unlock.nix
     ./samba.nix
     ./sops.nix
