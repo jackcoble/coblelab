@@ -44,6 +44,10 @@ in {
       boot.zfs.forceImportRoot = false;
       networking.hostId = cfg.zfs.hostId;
 
+      # Extra pools to mount at boot
+      # https://nixos.wiki/wiki/ZFS#Importing_pools_at_boot
+      boot.zfs.extraPools = ["zstorage"];
+
       # Disko configuration for Root partition
       disko.devices = {
         disk = {
