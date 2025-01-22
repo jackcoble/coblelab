@@ -11,7 +11,7 @@ boot.initrd.availableKernelModules
   lib,
   ...
 }: let
-  cfg = config.coblelab.remoteunlock;
+  cfg = config.coblelab.remoteUnlock;
 in {
   options.coblelab.remoteUnlock = {
     enable = lib.mkEnableOption "Unlock LUKS remotely via SSH";
