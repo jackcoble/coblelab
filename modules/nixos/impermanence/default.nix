@@ -41,5 +41,14 @@ in {
     security.sudo.extraConfig = ''
       Defaults lecture = never
     '';
+
+    # Roll back to the empty root snapshot on each boot
+    # Note: https://github.com/NixOS/nixpkgs/issues/341542
+    boot.initrd.postResumeCommands = lib.mkAfter ''
+      zfs rollback -r zroot/root@empty
+    '';
+
+    # Filesystems need to be available for boot
+    fileSystems."${config.coblelab.impermanence.persistDirectory}".neededForBoot = true;
   };
 }
