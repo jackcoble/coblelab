@@ -21,17 +21,10 @@
   # Users
   coblelab.users.jack.enable = true; # Personal user
 
-  # Disks.
-  coblelab.disks.enable = true;
-  coblelab.disks.systemd-boot = true;
-
   # ZFS
-  coblelab.disks.zfs.enable = true;
-  coblelab.disks.zfs.devices = [
-    "/dev/disk/by-id/ata-512GB_SSD_MP33B21003510" # 512GB Boot NVMe
-  ];
-  coblelab.disks.zfs.hostId = "17bdf883";
-  coblelab.disks.zfs.reservation = "10GiB";
+  coblelab.zfs.enable = true;
+  coblelab.zfs.bootDevice = "/dev/disk/by-id/ata-512GB_SSD_MP33B21003510"; # 512GB Boot NVMe
+  coblelab.zfs.hostId = "17bdf883";
 
   # Remote unlock LUKS disk
   coblelab.remoteUnlock.enable = true;

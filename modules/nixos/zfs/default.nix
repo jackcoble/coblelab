@@ -1,5 +1,5 @@
 /*
-This disks module prepares my disks and filesystems (ZFS) ready for installation.
+This disks module prepares my boot disk for ZFS.
 */
 {
   options,
@@ -8,53 +8,44 @@ This disks module prepares my disks and filesystems (ZFS) ready for installation
   pkgs,
   ...
 }: let
-  cfg = config.coblelab.disks;
+  cfg = config.coblelab.zfs;
 in {
-  options.coblelab.disks = {
-    enable = lib.mkEnableOption "Disk configuration";
-    systemd-boot = lib.mkEnableOption "Use systemd-boot as the bootloader";
+  options.coblelab.zfs = {
+    enable = lib.mkEnableOption "Enable ZFS";
 
-    zfs = {
-      enable = lib.mkEnableOption "Use ZFS filesystem for Root";
+    bootDevice = lib.mkOption {
+      type = lib.types.str;
+      default = null;
+      description = "Boot NVMe Device";
+    };
 
-      devices = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [];
-        description = "List of devices to use for ZFS";
-      };
-
-      hostId = lib.mkOption {
-        type = lib.types.str;
-        default = "17bdf883"; # `head -c 8 /etc/machine-id`
-        description = "Host ID (derived from machine id)";
-      };
-
-      reservation = lib.mkOption {
-        type = lib.types.str;
-        default = "20GiB";
-        description = "ZFS reservation for pool";
-      };
+    hostId = lib.mkOption {
+      type = lib.types.str;
+      default = null; # `head -c 8 /etc/machine-id`
+      description = "Host ID (derived from machine id)";
     };
   };
 
   config = lib.mkMerge [
-    (lib.mkIf (cfg.enable && cfg.zfs.enable) {
+    (lib.mkIf cfg.enable {
       # Taken from https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/index.html
       boot.supportedFilesystems = ["zfs" "vfat"];
       boot.zfs.forceImportRoot = false;
-      networking.hostId = cfg.zfs.hostId;
+      networking.hostId = cfg.hostId;
 
       # Extra pools to mount at boot
       # https://nixos.wiki/wiki/ZFS#Importing_pools_at_boot
       boot.zfs.extraPools = ["zstorage"];
 
+      # Disable automatic snapshots (as these are handled by the Sanoid module)
+      services.zfs.autoSnapshot.enable = false;
+
       # Disko configuration for Root partition
       disko.devices = {
         disk = {
-          # Boot NVMe Drive
           boot-nvme = {
             type = "disk";
-            device = builtins.elemAt cfg.zfs.devices 0;
+            device = cfg.bootDevice;
             content = {
               type = "gpt";
               partitions = {
@@ -101,16 +92,20 @@ in {
           # Root Pool
           zroot = {
             type = "zpool";
-            rootFsOptions = {
-              compression = "zstd";
-              mountpoint = "none";
-              relatime = "on";
-              "com.sun:auto-snapshot" = "false";
-            };
 
             options = {
               ashift = "12";
               autotrim = "on";
+            };
+
+            rootFsOptions = {
+              acltype = "posixacl";
+              canmount = "off";
+              dnodesize = "auto";
+              normalization = "formD";
+              relatime = "on";
+              xattr = "sa";
+              mountpoint = "none";
             };
 
             datasets = {
@@ -121,7 +116,7 @@ in {
                 options = {
                   canmount = "off";
                   mountpoint = "none";
-                  reservation = "${cfg.zfs.reservation}";
+                  reservation = "10GiB";
                 };
               };
 
@@ -130,8 +125,8 @@ in {
                 type = "zfs_fs";
                 options = {
                   mountpoint = "legacy";
-                  "com.sun:auto-snapshot" = "false";
                 };
+
                 mountpoint = "/";
                 postCreateHook = "zfs snapshot zroot/root@empty";
               };
@@ -139,25 +134,25 @@ in {
               # Nix
               nix = {
                 type = "zfs_fs";
-                mountpoint = "/nix";
                 options = {
                   atime = "off";
                   canmount = "on";
                   mountpoint = "legacy";
-                  "com.sun:auto-snapshot" = "false";
                 };
+
+                mountpoint = "/nix";
               };
 
               # Home
               home = {
                 type = "zfs_fs";
-                mountpoint = "/home";
                 options = {
                   atime = "off";
                   canmount = "on";
                   mountpoint = "legacy";
-                  "com.sun:auto-snapshot" = "false";
                 };
+
+                mountpoint = "/home";
               };
 
               # Persist
@@ -165,8 +160,8 @@ in {
                 type = "zfs_fs";
                 options = {
                   mountpoint = "legacy";
-                  "com.sun:auto-snapshot" = "false";
                 };
+
                 mountpoint = "${config.coblelab.impermanence.persistDirectory}";
               };
             };
