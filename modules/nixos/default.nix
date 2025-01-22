@@ -6,8 +6,8 @@
     ./pocket-id
     ./sanoid
     ./users
+    ./zfs
 
-    ./disks.nix
     ./remote-unlock.nix
     ./samba.nix
     ./sops.nix
