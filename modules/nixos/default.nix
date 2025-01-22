@@ -2,6 +2,7 @@
   imports = [
     ./backups
     ./cloudflared
+    ./impermanence
     ./pocket-id
     ./sanoid
     ./users
