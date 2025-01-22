@@ -38,14 +38,6 @@ in {
   };
 
   config = lib.mkMerge [
-    # systemd-boot
-    (lib.mkIf (cfg.enable && cfg.systemd-boot) {
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.systemd-boot.configurationLimit = 16;
-      boot.loader.efi.canTouchEfiVariables = true;
-      boot.loader.timeout = 3;
-    })
-
     # ZFS
     (lib.mkIf (cfg.enable && cfg.zfs.enable) {
       boot.supportedFilesystems = ["zfs" "vfat"];
