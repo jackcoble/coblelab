@@ -38,15 +38,11 @@ in {
   };
 
   config = lib.mkMerge [
-    # ZFS
     (lib.mkIf (cfg.enable && cfg.zfs.enable) {
+      # Taken from https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/index.html
       boot.supportedFilesystems = ["zfs" "vfat"];
+      boot.zfs.forceImportRoot = false;
       networking.hostId = cfg.zfs.hostId;
-      services.zfs.autoScrub.enable = true;
-
-      # Only use compatible Linux kernel, since ZFS can be behind
-      boot.kernelPackages = pkgs.linuxPackages; # Defaults to latest LTS
-      boot.kernelParams = ["nohibernate"];
 
       # Disko configuration for Root partition
       disko.devices = {
