@@ -28,7 +28,7 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      boot.supportedFilesystems = ["zfs" "vfat"];
+      boot.supportedFilesystems = ["zfs"];
       boot.zfs.forceImportRoot = false;
       boot.zfs.requestEncryptionCredentials = true;
       networking.hostId = cfg.hostId;
