@@ -10,7 +10,9 @@ boot.initrd.availableKernelModules
   config,
   lib,
   ...
-}: {
+}: let
+  cfg = config.coblelab.remoteunlock;
+in {
   options.coblelab.remoteUnlock = {
     enable = lib.mkEnableOption "Unlock LUKS remotely via SSH";
 
@@ -27,7 +29,7 @@ boot.initrd.availableKernelModules
     };
   };
 
-  config = lib.mkIf config.coblelab.remoteUnlock.enable {
+  config = lib.mkIf cfg.enable {
     boot.kernelParams = ["ip=dhcp"];
 
     boot.initrd.network = {
@@ -35,17 +37,11 @@ boot.initrd.availableKernelModules
 
       ssh = {
         enable = true;
-        port = config.coblelab.remoteUnlock.port;
+        port = cfg.port;
         shell = "/bin/cryptsetup-askpass";
-        authorizedKeys = config.coblelab.remoteUnlock.authorizedKeys;
+        authorizedKeys = cfg.authorizedKeys;
         hostKeys = ["/etc/ssh/ssh_boot_ed25519_key"];
       };
     };
-
-    # Persist the SSH Boot Keys
-    environment.persistence."${config.coblelab.impermanence.persistDirectory}".files = [
-      "/etc/ssh/ssh_boot_ed25519_key"
-      "/etc/ssh/ssh_boot_ed25519_key.pub"
-    ];
   };
 }
