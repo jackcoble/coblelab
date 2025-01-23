@@ -96,7 +96,7 @@ in {
               normalization = "formD";
               relatime = "on";
               xattr = "sa";
-              compression = "lz4";
+              compression = "zstd";
               mountpoint = "none";
               encryption = "aes-256-gcm";
               keyformat = "passphrase";
