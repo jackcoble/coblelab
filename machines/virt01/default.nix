@@ -14,6 +14,10 @@
   # This host is a QEMU Guest
   services.qemuGuest.enable = true;
 
+  # Bootloader
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   # Users
   coblelab.users.jack.enable = true; # Personal user
 
