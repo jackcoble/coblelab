@@ -98,9 +98,13 @@ in {
               xattr = "sa";
               compression = "zstd";
               mountpoint = "none";
+
+              /*
+              # Disable encryption for now
               encryption = "aes-256-gcm";
               keyformat = "passphrase";
               keylocation = "file:///tmp/secret.key";
+              */
             };
 
             datasets = {
