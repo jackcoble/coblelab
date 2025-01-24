@@ -26,7 +26,6 @@ in {
         "/var/log" # system logs
         "/var/lib/nixos"
         "/var/lib/systemd" # systemd state
-        "/var/lib/btrfs" # btrfs state
       ];
 
       # Files we want to keep

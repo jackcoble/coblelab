@@ -33,10 +33,6 @@ in {
       boot.zfs.requestEncryptionCredentials = true;
       networking.hostId = cfg.hostId;
 
-      # Extra pools to mount at boot
-      # https://nixos.wiki/wiki/ZFS#Importing_pools_at_boot
-      boot.zfs.extraPools = ["zstorage"];
-
       # Disable automatic snapshots (as these are handled by the Sanoid module)
       services.zfs.autoSnapshot.enable = false;
 
