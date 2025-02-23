@@ -2,6 +2,7 @@
   config,
   pkgs,
   sshPublicKeys,
+  modulesPath,
   ...
 }: {
   imports = [
