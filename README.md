@@ -21,6 +21,7 @@
 ## 🤖 Machines
 
 - `nuc01` - Beelink MINI S12 (NUC)
+- `virt01` - Proxmox LXC Container
 
 ## 🧱 Getting Started
 
