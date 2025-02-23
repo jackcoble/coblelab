@@ -13,10 +13,6 @@
   # Proxmox
   boot.isContainer = true;
   nix.settings.sandbox = false;
-  proxmoxLXC = {
-    manageNetwork = false;
-    privileged = true;
-  };
 
   # Supress systemd units that don't work because of LXC.
   # https://blog.xirion.net/posts/nixos-proxmox-lxc/#configurationnix-tweak
