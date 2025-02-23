@@ -6,28 +6,21 @@
 }: {
   imports = [
     ../../modules/nixos
+    (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
+
+  # Proxmox
+  nix.settings.sandbox = false;
+  proxmoxLXC = {
+    manageNetwork = false;
+    privileged = true;
+  };
 
   # Enable Nix Flakes
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # This host is a QEMU Guest
-  services.qemuGuest.enable = true;
-
-  # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   # Users
   coblelab.users.jack.enable = true; # Personal user
-
-  # ZFS
-  coblelab.zfs.enable = true;
-  coblelab.zfs.bootDevice = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0"; # Virtual disk
-  coblelab.zfs.hostId = "17bdf883";
-
-  # Impermanence.
-  coblelab.impermanence.enable = true;
 
   # Networking.
   networking.networkmanager.enable = true;
