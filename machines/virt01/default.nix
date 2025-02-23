@@ -7,15 +7,24 @@
 }: {
   imports = [
     ../../modules/nixos
-    (modulesPath + "/virtualisation/proxmox-lxc.nix")
+    "${modulesPath}/virtualisation/lxc-container.nix"
   ];
 
   # Proxmox
+  boot.isContainer = true;
   nix.settings.sandbox = false;
   proxmoxLXC = {
     manageNetwork = false;
     privileged = true;
   };
+
+  # Supress systemd units that don't work because of LXC.
+  # https://blog.xirion.net/posts/nixos-proxmox-lxc/#configurationnix-tweak
+  systemd.suppressedSystemUnits = [
+    "dev-mqueue.mount"
+    "sys-kernel-debug.mount"
+    "sys-fs-fuse-connections.mount"
+  ];
 
   # Enable Nix Flakes
   nix.settings.experimental-features = ["nix-command" "flakes"];
