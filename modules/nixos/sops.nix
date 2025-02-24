@@ -17,6 +17,6 @@ This SOPS module takes care of loading secrets, decrypting them using the Host S
 
     restic-password = {};
     tailscale-key = {};
-    cloudflare-api-key = {}
+    cloudflare-api-key = {};
   };
 }
