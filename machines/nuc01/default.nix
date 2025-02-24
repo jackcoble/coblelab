@@ -26,25 +26,11 @@
   coblelab.zfs.bootDevice = "/dev/disk/by-id/ata-512GB_SSD_MP33B21003510"; # 512GB Boot NVMe
   coblelab.zfs.hostId = "17bdf883";
 
-  # Remote unlock LUKS disk
-  coblelab.remoteUnlock.enable = true;
-  coblelab.remoteUnlock.authorizedKeys = [sshPublicKeys.user.jack];
-
   # Impermanence.
   coblelab.impermanence.enable = true;
 
-  # Podman (Containers)
-  # Enable common container config files in /etc/containers
-  virtualisation.containers.enable = true;
-  virtualisation = {
-    podman = {
-      enable = true;
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-    };
-  };
+  # Containers (Podman)
+  coblelab.podman.enable = true;
 
   # Networking.
   networking.networkmanager.enable = true;

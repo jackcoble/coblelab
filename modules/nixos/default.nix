@@ -3,6 +3,7 @@
     ./backups
     ./impermanence
     ./pocket-id
+    ./podman
     ./samba
     ./sanoid
     ./users
