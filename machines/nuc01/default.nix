@@ -68,35 +68,11 @@
   # Backups
   coblelab.backups.enable = true;
 
-  # Samba & Time Machine
-  coblelab.samba.enable = true;
-  coblelab.samba.timeMachine.enable = true;
-
-  # Pocket ID (OIDC Provider)
-  coblelab.pocket-id = {
-    enable = true;
-    dataDir = "/zstorage/docker/pocket-id";
-    environment = {
-      PUBLIC_APP_URL = "https://auth.coblelabs.net";
-      TRUST_PROXY = "true";
-      PUID = "1000";
-      PGID = "1000";
-      CADDY_PORT = "8081";
-    };
-  };
-
   # Disable sudo password for users in the "wheel" group
   security.sudo.wheelNeedsPassword = false;
 
   # Timezone.
   coblelab.timezone.enable = true;
-
-  # System Packages
-  environment.systemPackages = with pkgs; [
-    sops
-    age
-    ssh-to-age
-  ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.11";
