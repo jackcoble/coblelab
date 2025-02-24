@@ -3,11 +3,11 @@
     ./backups
     ./impermanence
     ./pocket-id
+    ./samba
     ./sanoid
     ./users
     ./zfs
 
-    ./samba.nix
     ./sops.nix
     ./ssh.nix
     ./timezone.nix
