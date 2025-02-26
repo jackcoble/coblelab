@@ -15,7 +15,7 @@ in {
     coblelab.containers.unifi.enable = lib.mkEnableOption "UniFi Controller";
   };
 
-  config = lib.mkIf config.coblelab.containers.unifi-controller.enable {
+  config = lib.mkIf config.coblelab.containers.unifi.enable {
     environment.systemPackages = [pkgs.podman];
 
     systemd.tmpfiles.rules = [
