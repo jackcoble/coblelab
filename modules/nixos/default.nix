@@ -6,6 +6,7 @@
     ./podman
     ./samba
     ./sanoid
+    ./unifi
     ./users
     ./zfs
 

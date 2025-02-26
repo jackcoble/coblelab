@@ -32,6 +32,9 @@
   # Containers (Podman)
   coblelab.podman.enable = true;
 
+  # UniFi Controller
+  coblelab.unifi.enable = true;
+
   # Networking.
   networking.networkmanager.enable = true;
   networking.hostName = "nuc01";
