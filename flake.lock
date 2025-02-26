@@ -1,20 +1,5 @@
 {
   "nodes": {
-    "caddy": {
-      "locked": {
-        "lastModified": 1735284852,
-        "narHash": "sha256-mQu3IwEO294DuB7XAXOvOLriElDgRTf6rTLoDh3tMFQ=",
-        "owner": "vincentbernat",
-        "repo": "caddy-nix",
-        "rev": "b421380ded7c000f432092df0f1a7afd9e187173",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vincentbernat",
-        "repo": "caddy-nix",
-        "type": "github"
-      }
-    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -22,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1739841949,
-        "narHash": "sha256-lSOXdgW/1zi/SSu7xp71v+55D5Egz8ACv0STkj7fhbs=",
+        "lastModified": 1740485968,
+        "narHash": "sha256-WK+PZHbfDjLyveXAxpnrfagiFgZWaTJglewBWniTn2Y=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "15dbf8cebd8e2655a883b74547108e089f051bf0",
+        "rev": "19c1140419c4f1cdf88ad4c1cfb6605597628940",
         "type": "github"
       },
       "original": {
@@ -52,11 +37,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1740339700,
-        "narHash": "sha256-cbrw7EgQhcdFnu6iS3vane53bEagZQy/xyIkDWpCgVE=",
+        "lastModified": 1740463929,
+        "narHash": "sha256-4Xhu/3aUdCKeLfdteEHMegx5ooKQvwPHNkOgNCXQrvc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "04ef94c4c1582fd485bbfdb8c4a8ba250e359195",
+        "rev": "5d7db4668d7a0c6cc5fc8cf6ef33b008b2b1ed8b",
         "type": "github"
       },
       "original": {
@@ -84,7 +69,6 @@
     },
     "root": {
       "inputs": {
-        "caddy": "caddy",
         "disko": "disko",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
