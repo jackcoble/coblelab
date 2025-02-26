@@ -43,9 +43,6 @@
     authKeyFile = config.sops.secrets.tailscale-key.path;
   };
 
-  # Caddy
-  coblelab.caddy.enable = true;
-
   # Fixes DNS not working after initrd
   # https://github.com/NixOS/nixpkgs/issues/63941#issuecomment-2081126437
   boot.initrd.network.udhcpc.enable = true;

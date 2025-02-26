@@ -12,8 +12,6 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
-    caddy.url = "github:vincentbernat/caddy-nix";
   };
 
   outputs = {
@@ -22,7 +20,6 @@
     disko,
     impermanence,
     sops-nix,
-    caddy,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -48,10 +45,6 @@
           sops-nix.nixosModules.sops
           ./machines/nuc01
         ];
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          overlays = [caddy.overlays.default];
-        };
       };
 
       # VM

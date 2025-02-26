@@ -1,7 +1,6 @@
 {
   imports = [
     ./backups
-    ./caddy
     ./impermanence
     ./pocket-id
     ./podman
