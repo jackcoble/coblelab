@@ -23,9 +23,9 @@ in {
 
       # Directories we want to keep
       directories = [
-        "/var/log" # system logs
+        "/var/log"
         "/var/lib/nixos"
-        "/var/lib/systemd" # systemd state
+        "/var/lib/systemd"
       ];
 
       # Files we want to keep

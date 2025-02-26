@@ -38,5 +38,13 @@ in {
       };
       extraOptions = ["--network=host"];
     };
+
+    networking.firewall.allowedTCPPorts = [8443 8080];
+    networking.firewall.allowedUDPPorts = [3478 10001];
+
+    # Persist the data directory
+    environment.persistence."${config.coblelab.impermanence.persistDirectory}" = {
+      directories = [dataDir];
+    };
   };
 }
