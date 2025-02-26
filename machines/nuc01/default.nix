@@ -43,6 +43,14 @@
     authKeyFile = config.sops.secrets.tailscale-key.path;
   };
 
+  # Git
+  programs.git = {
+    enable = true;
+    config = {
+      init.defaultBranch = "main";
+    };
+  };
+
   # Fixes DNS not working after initrd
   # https://github.com/NixOS/nixpkgs/issues/63941#issuecomment-2081126437
   boot.initrd.network.udhcpc.enable = true;
