@@ -29,6 +29,12 @@ To provision a system as fast as possible, I have created an [install.sh](https:
 $ ./install.sh
 ```
 
+Once the installation is completed, I can SSH into the machine with my personal user, and then bring my system up to date with my changes. (Make sure git is installed!)
+
+```bash
+# nixos-rebuild --flake git+https://github.com/jackcoble/coblelab --refresh
+```
+
 ## Manual Configuration
 
 Once the base system has been installed, some manual steps need to be performed to complete the configuration. It is required to create a new [storage pool](https://openzfs.readthedocs.io/en/latest/introduction.html#storage-pools) where the majority of my data will reside.
