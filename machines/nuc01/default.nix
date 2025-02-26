@@ -33,7 +33,7 @@
   coblelab.podman.enable = true;
 
   # UniFi Controller
-  coblelab.unifi.enable = true;
+  coblelab.containers.unifi.enable = true;
 
   # Networking.
   networking.networkmanager.enable = true;
