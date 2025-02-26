@@ -32,7 +32,7 @@ $ ./install.sh
 Once the installation is completed, I can SSH into the machine with my personal user, and then bring my system up to date with my changes. (Make sure git is installed!)
 
 ```bash
-# nixos-rebuild --flake git+https://github.com/jackcoble/coblelab --refresh
+# nixos-rebuild switch --flake git+https://github.com/jackcoble/coblelab --refresh
 ```
 
 ## Manual Configuration
