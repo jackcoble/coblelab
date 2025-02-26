@@ -39,6 +39,9 @@
         system = "x86_64-linux";
         specialArgs = {sshPublicKeys = import ./modules/nixos/ssh-public-keys.nix;};
         modules = [
+          ({pkgs, ...}: {
+            nixpkgs.config.allowUnfree = true; # Add this line
+          })
           disko.nixosModules.disko
           impermanence.nixosModules.impermanence
           sops-nix.nixosModules.sops
