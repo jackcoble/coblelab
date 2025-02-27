@@ -39,23 +39,14 @@ Once the installation is completed, I can SSH into the machine with my personal 
 
 Once the base system has been installed, some manual steps need to be performed to complete the configuration. It is required to create a new [storage pool](https://openzfs.readthedocs.io/en/latest/introduction.html#storage-pools) where the majority of my data will reside.
 
-For my current setup, I have 2 external SSDs plugged into my NUC. I will create a ZFS Pool which is mirrored across both drives, giving me 1 drive as redundancy.
 
-### Storage Pool
+### Storage Pools
 
-Pool Name: `zstorage`
-
-SSD 1:
-
-- Model: External Crucial X9 SSD (1TB)
-- Identifier: `/dev/disk/by-id/usb-Micron_CT1000X9SSD9_2419E8D193A0-0:0`
-
-SSD 2:
-
-- Model: Crucial P2 CT1000P2SSD8 NVMe (1TB) (External USB-C Enclosure)
-- Identifier: `/dev/disk/by-id/usb-SSK_SSK_Storage_DD564198838B8-0:0`
+| Pool Name | RAID Type | Device Identifiers                                                                                                    | Purpose                                       | Raw Storage | Actual Storage |
+| --------- | --------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ----------- | -------------- |
+| zflash  | Mirror    | `/dev/disk/by-id/usb-Micron_CT1000X9SSD9_2419E8D193A0-0:0`<br>`/dev/disk/by-id/usb-SSK_SSK_Storage_DD564198838B8-0:0` | Primary storage pool for data with redundancy | 2 TB        | 1 TB           |
 
 ```
 $ zpool create -o ashift=12 \
-    zstorage mirror /dev/disk/by-id/usb-Micron_CT1000X9SSD9_2419E8D193A0-0:0 /dev/disk/by-id/usb-SSK_SSK_Storage_DD564198838B8-0:0
+    zflash mirror /dev/disk/by-id/usb-Micron_CT1000X9SSD9_2419E8D193A0-0:0 /dev/disk/by-id/usb-SSK_SSK_Storage_DD564198838B8-0:0
 ```
