@@ -31,6 +31,7 @@
 
   # Containers (Podman)
   coblelab.podman.enable = true;
+  coblelab.containers.caddy.enable = true;
   coblelab.containers.unifi.enable = true;
 
   # AdGuard Home
