@@ -4,9 +4,9 @@
   lib,
   ...
 }: let
-  cfg = config.coblelab.caddy;
+  cfg = config.coblelab.containers.caddy;
 in {
-  options.coblelab.caddy = {
+  options.coblelab.containers.caddy = {
     enable = lib.mkEnableOption "Caddy";
 
     dataDir = lib.mkOption {
