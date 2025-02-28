@@ -42,6 +42,18 @@ in {
 
       networking.firewall.allowedTCPPorts = [8443 8080];
       networking.firewall.allowedUDPPorts = [3478 10001];
+
+      # Caddy
+      services.caddy.virtualHosts."unifi.coble.casa".extraConfig = ''
+        tls {
+          dns cloudflare {env.cloudflare-api-key}
+        }
+        reverse_proxy localhost:8443 {
+          transport http {
+            tls_insecure_skip_verify
+          }
+        }
+      '';
     })
 
     # If Persistance mode is enabled, ensure the data directory is persisted
