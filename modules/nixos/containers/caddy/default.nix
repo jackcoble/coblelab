@@ -36,7 +36,7 @@ in {
       image = "ghcr.io/caddybuilds/caddy-cloudflare:latest";
       volumes = [
         "${cfg.dataDir}/data:/data"
-        "${cfg.dataDir}/config:/config"
+        "${cfg.dataDir}/config:/etc/caddy"
       ];
       ports = [
         "80:80"
