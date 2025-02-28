@@ -57,6 +57,6 @@ in {
     };
 
     # Restic
-    services.restic.backups.hetzner-storage-box.paths = ["${dataDir}"];
+    services.restic.backups.hetzner-storage-box.paths = [cfg.dataDir];
   };
 }
