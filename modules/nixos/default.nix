@@ -1,5 +1,6 @@
 {
   imports = [
+    ./adguard
     ./backups
     ./containers
     ./impermanence

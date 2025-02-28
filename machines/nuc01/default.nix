@@ -31,9 +31,10 @@
 
   # Containers (Podman)
   coblelab.podman.enable = true;
-
-  # UniFi Controller
   coblelab.containers.unifi.enable = true;
+
+  # AdGuard Home
+  coblelab.adguard.enable = true;
 
   # Networking.
   networking.networkmanager.enable = true;
