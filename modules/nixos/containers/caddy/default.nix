@@ -50,5 +50,13 @@ in {
 
     # Set kernel parameters to allow 80 to be the lowest unprivileged port
     boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
+
+    # If Persistance mode is enabled, ensure the data directory is persisted
+    environment.persistence."${config.coblelab.impermanence.persistDirectory}" = {
+      directories = [cfg.dataDir];
+    };
+
+    # Restic
+    services.restic.backups.hetzner-storage-box.paths = ["${dataDir}"];
   };
 }
