@@ -46,7 +46,7 @@ in {
       # Caddy
       services.caddy.virtualHosts."unifi.coble.casa".extraConfig = ''
         tls {
-          dns cloudflare {env.cloudflare-api-key}
+          dns cloudflare {env.CLOUDFLARE_API_TOKEN}
         }
         reverse_proxy localhost:8443 {
           transport http {
