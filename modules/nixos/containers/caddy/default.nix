@@ -35,8 +35,8 @@ in {
     virtualisation.oci-containers.containers."caddy" = {
       image = "ghcr.io/caddybuilds/caddy-cloudflare:latest";
       volumes = [
-        "${cfg.dataDir}/data:/data/caddy"
-        "${cfg.dataDir}/config:/etc/caddy"
+        "${cfg.dataDir}/data:/data"
+        "${cfg.dataDir}/config:/config"
       ];
       ports = [
         "80:80"
