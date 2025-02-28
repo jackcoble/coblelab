@@ -27,13 +27,16 @@ in {
     # Create the data directory
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 0755 caddy caddy -"
+      "d ${cfg.dataDir}/data 0755 caddy caddy -"
+      "d ${cfg.dataDir}/config 0755 caddy caddy -"
     ];
 
     # Create the Caddy container
     virtualisation.oci-containers.containers."caddy" = {
       image = "ghcr.io/caddybuilds/caddy-cloudflare:latest";
       volumes = [
-        "${cfg.dataDir}:/data"
+        "${cfg.dataDir}/data:/data/caddy"
+        "${cfg.dataDir}/config:/etc/caddy"
       ];
       ports = [
         "80:80"
