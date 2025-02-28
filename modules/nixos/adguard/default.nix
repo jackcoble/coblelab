@@ -19,6 +19,6 @@ in {
 
     # Open the AdGuard Home port (after install)
     # TODO: Make this configurable
-    networking.firewall.allowedTCPPorts = [8900];
+    networking.firewall.allowedTCPPorts = [8900 53];
   };
 }
