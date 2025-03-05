@@ -4,7 +4,6 @@
     ./backups
     ./containers
     ./impermanence
-    ./pocket-id
     ./podman
     ./samba
     ./sanoid

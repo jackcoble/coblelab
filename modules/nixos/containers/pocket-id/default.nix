@@ -4,10 +4,10 @@
   lib,
   ...
 }: let
-  cfg = config.coblelab.pocket-id;
+  cfg = config.coblelab.containers.pocket-id;
 in {
   # Configuration options
-  options.coblelab.pocket-id = {
+  options.coblelab.containers.pocket-id = {
     enable = lib.mkEnableOption "Enable Pocket ID";
 
     port = lib.mkOption {
