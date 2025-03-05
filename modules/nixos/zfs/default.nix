@@ -31,6 +31,7 @@ in {
       boot.supportedFilesystems = ["zfs"];
       boot.zfs.forceImportRoot = false;
       boot.zfs.requestEncryptionCredentials = true;
+      boot.zfs.extraPools = ["zflash"]; # Hardcoded - make configurable at some point
       networking.hostId = cfg.hostId;
 
       # Disable automatic snapshots (as these are handled by the Sanoid module)

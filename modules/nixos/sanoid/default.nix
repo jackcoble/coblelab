@@ -17,11 +17,11 @@
     };
 
     # ZFS Datasets to snapshot
-    datasets."zstorage/backups" = {
+    datasets."zflash/backups" = {
       useTemplate = ["backup"];
     };
 
-    datasets."zstorage/photos" = {
+    datasets."zflash/photos" = {
       useTemplate = ["backup"];
     };
   };
