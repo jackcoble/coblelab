@@ -31,11 +31,7 @@
 
   # Containers (Podman)
   coblelab.podman.enable = true;
-  coblelab.containers.caddy.enable = true;
   coblelab.containers.unifi.enable = true;
-
-  # AdGuard Home
-  coblelab.adguard.enable = true;
 
   # Networking.
   networking.networkmanager.enable = true;
@@ -55,11 +51,6 @@
       init.defaultBranch = "main";
     };
   };
-
-  # Fixes DNS not working after initrd
-  # https://github.com/NixOS/nixpkgs/issues/63941#issuecomment-2081126437
-  boot.initrd.network.udhcpc.enable = true;
-  boot.initrd.network.flushBeforeStage2 = true;
 
   # SSH.
   coblelab.ssh.enable = true;
