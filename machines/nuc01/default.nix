@@ -33,6 +33,9 @@
   coblelab.podman.enable = true;
   coblelab.containers.unifi.enable = true;
 
+  # Services
+  coblelab.home-assistant.enable = true;
+
   # Networking.
   networking.networkmanager.enable = true;
   networking.hostName = "nuc01";

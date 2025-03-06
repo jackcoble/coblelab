@@ -2,6 +2,7 @@
   imports = [
     ./backups
     ./containers
+    ./home-assistant
     ./impermanence
     ./podman
     ./samba
