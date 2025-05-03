@@ -19,7 +19,9 @@
 
 ## 🤖 Machines
 
+- `iso01` - Minimal NixOS ISO with my SSH key pre-enrolled
 - `nuc01` - Beelink MINI S12 (NUC)
+- `mba01` - Macbook Air (M3)
 
 ## 🧱 Getting Started
 
@@ -33,6 +35,11 @@ Once the installation is completed, I can SSH into the machine with my personal 
 
 ```bash
 # nixos-rebuild switch --flake git+https://github.com/jackcoble/coblelab --refresh
+```
+
+# Updating my system for `mba01`
+```bash
+$ nix run nix-darwin/master#darwin-rebuild -- switch --flake .#mba01
 ```
 
 ## Manual Configuration
