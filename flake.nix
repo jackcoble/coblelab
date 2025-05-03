@@ -11,6 +11,9 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -19,10 +22,24 @@
     disko,
     impermanence,
     sops-nix,
+    nix-darwin,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
   in {
+    darwinConfigurations = {
+      # MacBook Air
+      mba01 = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        modules = [
+          ({pkgs, ...}: {
+            nixpkgs.config.allowUnfree = true;
+          })
+          ./machines/mba01
+        ];
+      };
+    };
+
     nixosConfigurations = {
       # ISO Builder
       iso01 = lib.nixosSystem {
@@ -33,6 +50,7 @@
           ./machines/iso01
         ];
       };
+
 
       # NUC
       nuc01 = lib.nixosSystem {
