@@ -14,6 +14,8 @@
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
   outputs = {
@@ -23,6 +25,7 @@
     impermanence,
     sops-nix,
     nix-darwin,
+    mac-app-util,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -35,6 +38,7 @@
           ({pkgs, ...}: {
             nixpkgs.config.allowUnfree = true;
           })
+          mac-app-util.darwinModules.default
           ./machines/mba01
         ];
       };
