@@ -55,7 +55,6 @@
         ];
       };
 
-
       # NUC
       nuc01 = lib.nixosSystem {
         system = "x86_64-linux";
