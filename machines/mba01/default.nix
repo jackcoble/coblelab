@@ -9,6 +9,7 @@
       go
       discord
       pulumi-bin
+      awscli2
     ];
 
     # Finder
