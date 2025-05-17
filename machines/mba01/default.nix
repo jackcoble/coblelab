@@ -7,8 +7,6 @@
     # Packages
     environment.systemPackages = with pkgs; [
       go
-      docker
-      docker-compose
       discord
       pulumi-bin
     ];
