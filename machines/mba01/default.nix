@@ -10,6 +10,8 @@
       discord
       pulumi-bin
       awscli2
+      nodejs
+      yarn
     ];
 
     # Finder
