@@ -12,6 +12,8 @@
       awscli2
       nodejs
       yarn
+      mkcert
+      sqlc
     ];
 
     # Finder
